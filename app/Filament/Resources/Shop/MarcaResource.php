@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Shop;
 
-use App\Filament\Resources\Shop\BrandResource\Pages;
-use App\Filament\Resources\Shop\BrandResource\RelationManagers;
-use App\Models\Shop\Brand;
+use App\Filament\Resources\Shop\MarcaResource\Pages;
+use App\Filament\Resources\Shop\MarcaResource\RelationManagers;
+use App\Models\Shop\Marca;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -13,11 +13,11 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
-class BrandResource extends Resource
+class MarcaResource extends Resource
 {
-    protected static ?string $model = Brand::class;
+    protected static ?string $model = Marca::class;
 
-    protected static ?string $slug = 'shop/brands';
+    protected static ?string $slug = 'shop/marcas';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -44,7 +44,7 @@ class BrandResource extends Resource
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
-                                    ->unique(Brand::class, 'slug', ignoreRecord: true),
+                                    ->unique(Marca::class, 'slug', ignoreRecord: true),
                             ]),
                         Forms\Components\TextInput::make('website')
                             ->required()
@@ -57,19 +57,19 @@ class BrandResource extends Resource
                         Forms\Components\MarkdownEditor::make('description')
                             ->label('Description'),
                     ])
-                    ->columnSpan(['lg' => fn (?Brand $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn (?Marca $record) => $record === null ? 3 : 2]),
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Created at')
-                            ->content(fn (Brand $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (Marca $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Last modified at')
-                            ->content(fn (Brand $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn (Marca $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Brand $record) => $record === null),
+                    ->hidden(fn (?Marca $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -125,9 +125,9 @@ class BrandResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListBrands::route('/'),
-            'create' => Pages\CreateBrand::route('/create'),
-            'edit' => Pages\EditBrand::route('/{record}/edit'),
+            'index' => Pages\ListMarcas::route('/'),
+            'create' => Pages\CreateMarca::route('/create'),
+            'edit' => Pages\EditMarca::route('/{record}/edit'),
         ];
     }
 }

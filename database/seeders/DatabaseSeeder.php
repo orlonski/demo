@@ -8,7 +8,7 @@ use App\Models\Blog\Author;
 use App\Models\Blog\Category as BlogCategory;
 use App\Models\Blog\Post;
 use App\Models\Comment;
-use App\Models\Shop\Brand;
+use App\Models\Shop\Marca;
 use App\Models\Shop\Category as ShopCategory;
 use App\Models\Shop\Cliente;
 use App\Models\Shop\Order;
@@ -42,11 +42,11 @@ class DatabaseSeeder extends Seeder
         $this->command->info('Admin user created.');
 
         // Shop
-        $this->command->warn(PHP_EOL . 'Creating shop brands...');
-        $brands = $this->withProgressBar(20, fn () => Brand::factory()->count(20)
+        $this->command->warn(PHP_EOL . 'Criando marcas...');
+        $marcas = $this->withProgressBar(20, fn () => Marca::factory()->count(20)
             ->has(Address::factory()->count(rand(1, 3)))
             ->create());
-        $this->command->info('Shop brands created.');
+        $this->command->info('Marcas criadas.');
 
         $this->command->warn(PHP_EOL . 'Creating shop categories...');
         $categories = $this->withProgressBar(20, fn () => ShopCategory::factory(1)
@@ -64,7 +64,7 @@ class DatabaseSeeder extends Seeder
 
         $this->command->warn(PHP_EOL . 'Creating shop products...');
         $products = $this->withProgressBar(50, fn () => Product::factory(1)
-            ->sequence(fn ($sequence) => ['shop_brand_id' => $brands->random(1)->first()->id])
+            ->sequence(fn ($sequence) => ['shop_marca_id' => $marcas->random(1)->first()->id])
             ->hasAttached($categories->random(rand(3, 6)), ['created_at' => now(), 'updated_at' => now()])
             ->has(
                 Comment::factory()->count(rand(10, 20))

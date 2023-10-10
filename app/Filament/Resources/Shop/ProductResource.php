@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\Shop;
 
-use App\Filament\Resources\Shop\BrandResource\RelationManagers\ProductsRelationManager;
+use App\Filament\Resources\Shop\MarcaResource\RelationManagers\ProductsRelationManager;
 use App\Filament\Resources\Shop\ProductResource\Pages;
 use App\Filament\Resources\Shop\ProductResource\RelationManagers;
 use App\Filament\Resources\Shop\ProductResource\Widgets\ProductStats;
@@ -150,8 +150,8 @@ class ProductResource extends Resource
 
                         Forms\Components\Section::make('Associations')
                             ->schema([
-                                Forms\Components\Select::make('shop_brand_id')
-                                    ->relationship('brand', 'name')
+                                Forms\Components\Select::make('shop_marca_id')
+                                    ->relationship('marca', 'name')
                                     ->searchable()
                                     ->hiddenOn(ProductsRelationManager::class),
 
@@ -179,7 +179,7 @@ class ProductResource extends Resource
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('brand.name')
+                Tables\Columns\TextColumn::make('marca.name')
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
@@ -221,8 +221,8 @@ class ProductResource extends Resource
                     ->toggledHiddenByDefault(),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('brand')
-                    ->relationship('brand', 'name')
+                Tables\Filters\SelectFilter::make('marca')
+                    ->relationship('marca', 'name')
                     ->preload()
                     ->multiple()
                     ->searchable(),
@@ -273,7 +273,7 @@ class ProductResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['name', 'sku', 'brand.name'];
+        return ['name', 'sku', 'marca.name'];
     }
 
     public static function getGlobalSearchResultDetails(Model $record): array
@@ -281,13 +281,13 @@ class ProductResource extends Resource
         /** @var Product $record */
 
         return [
-            'Brand' => optional($record->brand)->name,
+            'Marca' => optional($record->marca)->name,
         ];
     }
 
     public static function getGlobalSearchEloquentQuery(): Builder
     {
-        return parent::getGlobalSearchEloquentQuery()->with(['brand']);
+        return parent::getGlobalSearchEloquentQuery()->with(['marca']);
     }
 
     public static function getNavigationBadge(): ?string

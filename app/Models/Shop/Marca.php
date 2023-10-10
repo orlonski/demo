@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Brand extends Model implements HasMedia
+class Marca extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
@@ -18,7 +18,7 @@ class Brand extends Model implements HasMedia
     /**
      * @var string
      */
-    protected $table = 'shop_brands';
+    protected $table = 'shop_marcas';
 
     /**
      * @var array<string, string>
@@ -34,6 +34,6 @@ class Brand extends Model implements HasMedia
 
     public function products(): HasMany
     {
-        return $this->hasMany(Product::class, 'shop_brand_id');
+        return $this->hasMany(Product::class, 'shop_marca_id');
     }
 }

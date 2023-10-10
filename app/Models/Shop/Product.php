@@ -32,9 +32,9 @@ class Product extends Model implements HasMedia
         'published_at' => 'date',
     ];
 
-    public function brand(): BelongsTo
+    public function marca(): BelongsTo
     {
-        return $this->belongsTo(Brand::class, 'shop_brand_id');
+        return $this->belongsTo(Marca::class, 'shop_marca_id');
     }
 
     public function categories(): BelongsToMany

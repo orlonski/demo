@@ -2,16 +2,16 @@
 
 namespace Database\Factories\Shop;
 
-use App\Models\Shop\Brand;
+use App\Models\Shop\Marca;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class BrandFactory extends Factory
+class MarcaFactory extends Factory
 {
     /**
      * @var string
      */
-    protected $model = Brand::class;
+    protected $model = Marca::class;
 
     public function definition(): array
     {
