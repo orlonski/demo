@@ -98,5 +98,5 @@ You're ready to go! Visit the url in your browser, and login with:
 - PostResource\RelationManagers\CommentsRelationManager
 
 #### MorphToMany
-- BrandResource\RelationManagers\AddressRelationManager
+- MarcaResource\RelationManagers\AddressRelationManager
 - ClienteResource\RelationManagers\AddressRelationManager
