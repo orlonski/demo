@@ -26,8 +26,8 @@ class CommentsRelationManager extends RelationManager
                 Forms\Components\TextInput::make('title')
                     ->required(),
 
-                Forms\Components\Select::make('customer_id')
-                    ->relationship('customer', 'name')
+                Forms\Components\Select::make('cliente_id')
+                    ->relationship('cliente', 'name')
                     ->searchable()
                     ->required(),
 
@@ -47,7 +47,7 @@ class CommentsRelationManager extends RelationManager
             ->columns(1)
             ->schema([
                 TextEntry::make('title'),
-                TextEntry::make('customer.name'),
+                TextEntry::make('cliente.name'),
                 IconEntry::make('is_visible')
                     ->label('Visibility')
                     ->boolean(),
@@ -65,8 +65,8 @@ class CommentsRelationManager extends RelationManager
                     ->searchable()
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('customer.name')
-                    ->label('Customer')
+                Tables\Columns\TextColumn::make('cliente.name')
+                    ->label('Cliente')
                     ->searchable()
                     ->sortable(),
 
@@ -84,7 +84,7 @@ class CommentsRelationManager extends RelationManager
                         Notification::make()
                             ->title('New comment')
                             ->icon('heroicon-o-chat-bubble-bottom-center-text')
-                            ->body("**{$record->customer->name} commented on product ({$record->commentable->name}).**")
+                            ->body("**{$record->cliente->name} commented on product ({$record->commentable->name}).**")
                             ->sendToDatabase(auth()->user());
                     }),
             ])

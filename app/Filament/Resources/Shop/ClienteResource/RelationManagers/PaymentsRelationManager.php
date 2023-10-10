@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Shop\CustomerResource\RelationManagers;
+namespace App\Filament\Resources\Shop\ClienteResource\RelationManagers;
 
 use Akaunting\Money\Currency;
 use App\Filament\Resources\Shop\OrderResource;

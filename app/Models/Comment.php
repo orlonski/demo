@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Shop\Customer;
+use App\Models\Shop\Cliente;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,9 +16,9 @@ class Comment extends Model
 
     protected $guarded = [];
 
-    public function customer(): BelongsTo
+    public function cliente(): BelongsTo
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Cliente::class);
     }
 
     public function commentable(): MorphTo

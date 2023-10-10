@@ -89,7 +89,7 @@ class ProductResource extends Resource
 
                                 Forms\Components\TextInput::make('cost')
                                     ->label('Cost per item')
-                                    ->helperText('Customers won\'t see this price.')
+                                    ->helperText('Clientes won\'t see this price.')
                                     ->numeric()
                                     ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
                                     ->required(),

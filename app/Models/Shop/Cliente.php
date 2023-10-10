@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Customer extends Model
+class Cliente extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -19,7 +19,7 @@ class Customer extends Model
     /**
      * @var string
      */
-    protected $table = 'shop_customers';
+    protected $table = 'shop_clientes';
 
     /**
      * @var array<string, string>
@@ -40,6 +40,6 @@ class Customer extends Model
 
     public function payments(): HasManyThrough
     {
-        return $this->hasManyThrough(Payment::class, Order::class, 'shop_customer_id');
+        return $this->hasManyThrough(Payment::class, Order::class, 'shop_cliente_id');
     }
 }

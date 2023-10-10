@@ -37,9 +37,9 @@ class Order extends Model
         return $this->morphOne(OrderAddress::class, 'addressable');
     }
 
-    public function customer(): BelongsTo
+    public function cliente(): BelongsTo
     {
-        return $this->belongsTo(Customer::class, 'shop_customer_id');
+        return $this->belongsTo(Cliente::class, 'shop_cliente_id');
     }
 
     public function items(): HasMany

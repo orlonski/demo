@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Shop\Customer;
+use App\Models\Shop\Cliente;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +14,7 @@ return new class() extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignIdFor(Customer::class)->nullable()->constrained('shop_customers')->cascadeOnDelete();
+            $table->foreignIdFor(Cliente::class)->nullable()->constrained('shop_clientes')->cascadeOnDelete();
             $table->morphs('commentable');
             $table->text('title')->nullable();
             $table->text('content')->nullable();

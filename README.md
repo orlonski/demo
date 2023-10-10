@@ -88,7 +88,7 @@ You're ready to go! Visit the url in your browser, and login with:
 - OrderResource\RelationManagers\PaymentsRelationManager
 
 #### HasManyThrough
-- CustomerResource\RelationManagers\PaymentsRelationManager
+- ClienteResource\RelationManagers\PaymentsRelationManager
 
 #### MorphOne
 - OrderResource -> Address
@@ -99,4 +99,4 @@ You're ready to go! Visit the url in your browser, and login with:
 
 #### MorphToMany
 - BrandResource\RelationManagers\AddressRelationManager
-- CustomerResource\RelationManagers\AddressRelationManager
+- ClienteResource\RelationManagers\AddressRelationManager

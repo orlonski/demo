@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use App\Models\Shop\Brand;
-use App\Models\Shop\Customer;
+use App\Models\Shop\Cliente;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,9 +13,9 @@ class Address extends Model
 
     protected $table = 'addresses';
 
-    public function customers()
+    public function clientes()
     {
-        return $this->morphedByMany(Customer::class, 'addressable');
+        return $this->morphedByMany(Cliente::class, 'addressable');
     }
 
     public function brands()

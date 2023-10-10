@@ -72,7 +72,7 @@ class OrderResource extends Resource
                 Tables\Columns\TextColumn::make('number')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('customer.name')
+                Tables\Columns\TextColumn::make('cliente.name')
                     ->searchable()
                     ->sortable()
                     ->toggleable(),
@@ -191,7 +191,7 @@ class OrderResource extends Resource
 
     public static function getGloballySearchableAttributes(): array
     {
-        return ['number', 'customer.name'];
+        return ['number', 'cliente.name'];
     }
 
     public static function getGlobalSearchResultDetails(Model $record): array
@@ -199,13 +199,13 @@ class OrderResource extends Resource
         /** @var Order $record */
 
         return [
-            'Customer' => optional($record->customer)->name,
+            'Cliente' => optional($record->cliente)->name,
         ];
     }
 
     public static function getGlobalSearchEloquentQuery(): Builder
     {
-        return parent::getGlobalSearchEloquentQuery()->with(['customer', 'items']);
+        return parent::getGlobalSearchEloquentQuery()->with(['cliente', 'items']);
     }
 
     public static function getNavigationBadge(): ?string
@@ -267,8 +267,8 @@ class OrderResource extends Resource
                 ->dehydrated()
                 ->required(),
 
-            Forms\Components\Select::make('shop_customer_id')
-                ->relationship('customer', 'name')
+            Forms\Components\Select::make('shop_cliente_id')
+                ->relationship('cliente', 'name')
                 ->searchable()
                 ->required()
                 ->createOptionForm([
@@ -294,8 +294,8 @@ class OrderResource extends Resource
                 ])
                 ->createOptionAction(function (Forms\Components\Actions\Action $action) {
                     return $action
-                        ->modalHeading('Create customer')
-                        ->modalButton('Create customer')
+                        ->modalHeading('Criar cliente')
+                        ->modalButton('Criar cliente')
                         ->modalWidth('lg');
                 }),
 
