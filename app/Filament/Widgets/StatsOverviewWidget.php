@@ -17,7 +17,7 @@ class StatsOverviewWidget extends BaseWidget
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([7, 2, 10, 3, 15, 4, 17])
                 ->color('success'),
-            Stat::make('New customers', '1340')
+            Stat::make('Novos clientes', '1340')
                 ->description('3% decrease')
                 ->descriptionIcon('heroicon-m-arrow-trending-down')
                 ->chart([17, 16, 14, 15, 14, 13, 12])

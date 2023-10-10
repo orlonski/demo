@@ -56,7 +56,7 @@ class CategoryResource extends Resource
                             ->placeholder('Select parent category'),
 
                         Forms\Components\Toggle::make('is_visible')
-                            ->label('Visible to customers.')
+                            ->label('Visível para os clientes.')
                             ->default(true),
 
                         Forms\Components\MarkdownEditor::make('description')
