@@ -34,7 +34,7 @@ class CreatePedido extends CreateRecord
     protected function getSteps(): array
     {
         return [
-            Step::make('Pedido Details')
+            Step::make('Pedido Detalhes')
                 ->schema([
                     Section::make()->schema(PedidoResource::getFormSchema())->columns(),
                 ]),

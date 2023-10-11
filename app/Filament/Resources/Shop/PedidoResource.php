@@ -43,7 +43,6 @@ class PedidoResource extends Resource
                         Forms\Components\Section::make()
                             ->schema(static::getFormSchema())
                             ->columns(2),
-
                         Forms\Components\Section::make('Pedido items')
                             ->schema(static::getFormSchema('items')),
                     ])
@@ -196,7 +195,7 @@ class PedidoResource extends Resource
 
     public static function getGlobalSearchResultDetails(Model $record): array
     {
-        /** @var Pedido $record */
+        /** @var Order $record */
 
         return [
             'Cliente' => optional($record->cliente)->name,
