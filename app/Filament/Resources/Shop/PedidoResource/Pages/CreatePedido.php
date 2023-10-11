@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Filament\Resources\Shop\OrderResource\Pages;
+namespace App\Filament\Resources\Shop\PedidoResource\Pages;
 
-use App\Filament\Resources\Shop\OrderResource;
+use App\Filament\Resources\Shop\PedidoResource;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Wizard\Step;
 use Filament\Notifications\Actions\Action;
@@ -10,23 +10,23 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Pages\CreateRecord\Concerns\HasWizard;
 
-class CreateOrder extends CreateRecord
+class CreatePedido extends CreateRecord
 {
     use HasWizard;
 
-    protected static string $resource = OrderResource::class;
+    protected static string $resource = PedidoResource::class;
 
     protected function afterCreate(): void
     {
-        $order = $this->record;
+        $pedido = $this->record;
 
         Notification::make()
-            ->title('New order')
+            ->title('Novo pedido')
             ->icon('heroicon-o-shopping-bag')
-            ->body("**{$order->cliente->name} ordered {$order->items->count()} produtos.**")
+            ->body("**{$pedido->cliente->name} encomendado {$pedido->items->count()} produtos.**")
             ->actions([
                 Action::make('View')
-                    ->url(OrderResource::getUrl('edit', ['record' => $order])),
+                    ->url(PedidoResource::getUrl('edit', ['record' => $pedido])),
             ])
             ->sendToDatabase(auth()->user());
     }
@@ -34,14 +34,14 @@ class CreateOrder extends CreateRecord
     protected function getSteps(): array
     {
         return [
-            Step::make('Order Details')
+            Step::make('Pedido Details')
                 ->schema([
-                    Section::make()->schema(OrderResource::getFormSchema())->columns(),
+                    Section::make()->schema(PedidoResource::getFormSchema())->columns(),
                 ]),
 
-            Step::make('Order Items')
+            Step::make('Pedido Items')
                 ->schema([
-                    Section::make()->schema(OrderResource::getFormSchema('items')),
+                    Section::make()->schema(PedidoResource::getFormSchema('items')),
                 ]),
         ];
     }

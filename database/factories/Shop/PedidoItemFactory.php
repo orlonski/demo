@@ -2,15 +2,15 @@
 
 namespace Database\Factories\Shop;
 
-use App\Models\Shop\OrderItem;
+use App\Models\Shop\PedidoItem;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class OrderItemFactory extends Factory
+class PedidoItemFactory extends Factory
 {
     /**
      * @var string
      */
-    protected $model = OrderItem::class;
+    protected $model = PedidoItem::class;
 
     public function definition(): array
     {

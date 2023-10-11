@@ -78,20 +78,20 @@ You're ready to go! Visit the url in your browser, and login with:
 
 #### BelongsTo
 - ProdutoResource
-- OrderResource
+- PedidoResource
 - PostResource
 
 #### BelongsToMany
 - CategoriaResource\RelationManagers\ProdutosRelationManager
 
 #### HasMany
-- OrderResource\RelationManagers\PaymentsRelationManager
+- PedidoResource\RelationManagers\PaymentsRelationManager
 
 #### HasManyThrough
 - ClienteResource\RelationManagers\PaymentsRelationManager
 
 #### MorphOne
-- OrderResource -> Address
+- PedidoResource -> Address
 
 #### MorphMany
 - ProdutoResource\RelationManagers\CommentsRelationManager

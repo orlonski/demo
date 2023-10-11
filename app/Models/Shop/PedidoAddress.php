@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
-class OrderAddress extends Model
+class PedidoAddress extends Model
 {
     use HasFactory;
 
-    protected $table = 'shop_order_addresses';
+    protected $table = 'shop_pedido_addresses';
 
     public function addressable(): MorphTo
     {

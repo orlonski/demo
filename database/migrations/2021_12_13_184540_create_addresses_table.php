@@ -13,7 +13,7 @@ return new class() extends Migration
      */
     public function up()
     {
-        Schema::create('shop_order_addresses', function (Blueprint $table) {
+        Schema::create('shop_pedido_addresses', function (Blueprint $table) {
             $table->id();
             $table->morphs('addressable');
             $table->string('country')->nullable();
@@ -32,6 +32,6 @@ return new class() extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_order_addresses');
+        Schema::dropIfExists('shop_pedido_addresses');
     }
 };

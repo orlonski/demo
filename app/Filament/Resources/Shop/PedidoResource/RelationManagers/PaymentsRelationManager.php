@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Shop\OrderResource\RelationManagers;
+namespace App\Filament\Resources\Shop\PedidoResource\RelationManagers;
 
 use Akaunting\Money\Currency;
 use Filament\Forms;

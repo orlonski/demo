@@ -2,14 +2,14 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Resources\Shop\OrderResource;
-use App\Models\Shop\Order;
+use App\Filament\Resources\Shop\PedidoResource;
+use App\Models\Shop\Pedido;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Squire\Models\Currency;
 
-class LatestOrders extends BaseWidget
+class LatestPedidos extends BaseWidget
 {
     protected int | string | array $columnSpan = 'full';
 
@@ -18,12 +18,12 @@ class LatestOrders extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(OrderResource::getEloquentQuery())
+            ->query(PedidoResource::getEloquentQuery())
             ->defaultPaginationPageOption(5)
             ->defaultSort('created_at', 'desc')
             ->columns([
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Order Date')
+                    ->label('Pedido Date')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('number')
@@ -52,7 +52,7 @@ class LatestOrders extends BaseWidget
             ])
             ->actions([
                 Tables\Actions\Action::make('open')
-                    ->url(fn (Order $record): string => OrderResource::getUrl('edit', ['record' => $record])),
+                    ->url(fn (Pedido $record): string => PedidoResource::getUrl('edit', ['record' => $record])),
             ]);
     }
 }

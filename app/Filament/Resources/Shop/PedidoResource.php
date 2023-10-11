@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\Shop;
 
-use App\Filament\Resources\Shop\OrderResource\Pages;
-use App\Filament\Resources\Shop\OrderResource\RelationManagers;
-use App\Filament\Resources\Shop\OrderResource\Widgets\OrderStats;
+use App\Filament\Resources\Shop\PedidoResource\Pages;
+use App\Filament\Resources\Shop\PedidoResource\RelationManagers;
+use App\Filament\Resources\Shop\PedidoResource\Widgets\PedidoStats;
 use App\Forms\Components\AddressForm;
-use App\Models\Shop\Order;
+use App\Models\Shop\Pedido;
 use App\Models\Shop\Produto;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -20,11 +20,11 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
 use Squire\Models\Currency;
 
-class OrderResource extends Resource
+class PedidoResource extends Resource
 {
-    protected static ?string $model = Order::class;
+    protected static ?string $model = Pedido::class;
 
-    protected static ?string $slug = 'shop/orders';
+    protected static ?string $slug = 'shop/pedidos';
 
     protected static ?string $recordTitleAttribute = 'number';
 
@@ -44,23 +44,23 @@ class OrderResource extends Resource
                             ->schema(static::getFormSchema())
                             ->columns(2),
 
-                        Forms\Components\Section::make('Order items')
+                        Forms\Components\Section::make('Pedido items')
                             ->schema(static::getFormSchema('items')),
                     ])
-                    ->columnSpan(['lg' => fn (?Order $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn (?Pedido $record) => $record === null ? 3 : 2]),
 
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Created at')
-                            ->content(fn (Order $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (Pedido $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Last modified at')
-                            ->content(fn (Order $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn (Pedido $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Order $record) => $record === null),
+                    ->hidden(fn (?Pedido $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -104,7 +104,7 @@ class OrderResource extends Resource
                             ->money(),
                     ]),
                 Tables\Columns\TextColumn::make('created_at')
-                    ->label('Order Date')
+                    ->label('Data do pedido')
                     ->date()
                     ->toggleable(),
             ])
@@ -132,10 +132,10 @@ class OrderResource extends Resource
                     ->indicateUsing(function (array $data): array {
                         $indicators = [];
                         if ($data['created_from'] ?? null) {
-                            $indicators['created_from'] = 'Order from ' . Carbon::parse($data['created_from'])->toFormattedDateString();
+                            $indicators['created_from'] = 'Encomendar de ' . Carbon::parse($data['created_from'])->toFormattedDateString();
                         }
                         if ($data['created_until'] ?? null) {
-                            $indicators['created_until'] = 'Order until ' . Carbon::parse($data['created_until'])->toFormattedDateString();
+                            $indicators['created_until'] = 'Encomende até ' . Carbon::parse($data['created_until'])->toFormattedDateString();
                         }
 
                         return $indicators;
@@ -155,7 +155,7 @@ class OrderResource extends Resource
             ])
             ->groups([
                 Tables\Grouping\Group::make('created_at')
-                    ->label('Order Date')
+                    ->label('Data do pedido')
                     ->date()
                     ->collapsible(),
             ]);
@@ -171,16 +171,16 @@ class OrderResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            OrderStats::class,
+            PedidoStats::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListOrders::route('/'),
-            'create' => Pages\CreateOrder::route('/create'),
-            'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'index' => Pages\ListPedidos::route('/'),
+            'create' => Pages\CreatePedido::route('/create'),
+            'edit' => Pages\EditPedido::route('/{record}/edit'),
         ];
     }
 
@@ -196,7 +196,7 @@ class OrderResource extends Resource
 
     public static function getGlobalSearchResultDetails(Model $record): array
     {
-        /** @var Order $record */
+        /** @var Pedido $record */
 
         return [
             'Cliente' => optional($record->cliente)->name,

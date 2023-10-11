@@ -5,12 +5,12 @@ namespace App\Models\Shop;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderItem extends Model
+class PedidoItem extends Model
 {
     use HasFactory;
 
     /**
      * @var string
      */
-    protected $table = 'shop_order_items';
+    protected $table = 'shop_pedido_items';
 }

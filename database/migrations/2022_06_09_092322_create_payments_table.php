@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Shop\Order;
+use App\Models\Shop\Pedido;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,7 +12,7 @@ return new class() extends Migration
         Schema::create('shop_payments', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignIdFor(Order::class);
+            $table->foreignIdFor(Pedido::class);
 
             $table->string('reference');
 

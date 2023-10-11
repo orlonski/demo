@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Shop\ClienteResource\RelationManagers;
 
 use Akaunting\Money\Currency;
-use App\Filament\Resources\Shop\OrderResource;
+use App\Filament\Resources\Shop\PedidoResource;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -22,10 +22,10 @@ class PaymentsRelationManager extends RelationManager
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('order_id')
-                    ->label('Order')
+                Forms\Components\Select::make('pedido_id')
+                    ->label('Pedido')
                     ->relationship(
-                        'order',
+                        'pedido',
                         'number',
                         fn (Builder $query, RelationManager $livewire) => $query->whereBelongsTo($livewire->ownerRecord)
                     )
@@ -70,8 +70,8 @@ class PaymentsRelationManager extends RelationManager
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('order.number')
-                    ->url(fn ($record) => OrderResource::getUrl('edit', [$record->order]))
+                Tables\Columns\TextColumn::make('pedido.number')
+                    ->url(fn ($record) => PedidoResource::getUrl('edit', [$record->pedido]))
                     ->searchable()
                     ->sortable(),
 

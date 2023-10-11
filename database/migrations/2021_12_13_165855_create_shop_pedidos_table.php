@@ -13,7 +13,7 @@ return new class() extends Migration
      */
     public function up()
     {
-        Schema::create('shop_orders', function (Blueprint $table) {
+        Schema::create('shop_pedidos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('shop_cliente_id')->nullable()->constrained()->nullOnDelete();
             $table->string('number', 32)->unique();
@@ -35,6 +35,6 @@ return new class() extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_orders');
+        Schema::dropIfExists('shop_pedidos');
     }
 };

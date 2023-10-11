@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Order extends Model
+class Pedido extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -17,7 +17,7 @@ class Order extends Model
     /**
      * @var string
      */
-    protected $table = 'shop_orders';
+    protected $table = 'shop_pedidos';
 
     /**
      * @var array<int, string>
@@ -34,7 +34,7 @@ class Order extends Model
 
     public function address(): MorphOne
     {
-        return $this->morphOne(OrderAddress::class, 'addressable');
+        return $this->morphOne(PedidoAddress::class, 'addressable');
     }
 
     public function cliente(): BelongsTo
@@ -44,7 +44,7 @@ class Order extends Model
 
     public function items(): HasMany
     {
-        return $this->hasMany(OrderItem::class, 'shop_order_id');
+        return $this->hasMany(PedidoItem::class, 'shop_pedido_id');
     }
 
     public function payments(): HasMany

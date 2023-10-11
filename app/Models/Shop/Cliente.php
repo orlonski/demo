@@ -40,6 +40,6 @@ class Cliente extends Model
 
     public function payments(): HasManyThrough
     {
-        return $this->hasManyThrough(Payment::class, Order::class, 'shop_cliente_id');
+        return $this->hasManyThrough(Payment::class, Pedido::class, 'shop_cliente_id');
     }
 }

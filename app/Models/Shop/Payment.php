@@ -14,8 +14,8 @@ class Payment extends Model
 
     protected $guarded = [];
 
-    public function order(): BelongsTo
+    public function pedido(): BelongsTo
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Pedido::class);
     }
 }

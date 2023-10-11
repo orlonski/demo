@@ -2,12 +2,12 @@
 
 namespace Database\Factories\Shop;
 
-use App\Models\Shop\OrderAddress;
+use App\Models\Shop\PedidoAddress;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class OrderAddressFactory extends Factory
+class PedidoAddressFactory extends Factory
 {
-    protected $model = OrderAddress::class;
+    protected $model = PedidoAddress::class;
 
     public function definition(): array
     {

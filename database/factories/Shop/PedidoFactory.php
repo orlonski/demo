@@ -2,15 +2,15 @@
 
 namespace Database\Factories\Shop;
 
-use App\Models\Shop\Order;
+use App\Models\Shop\Pedido;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class OrderFactory extends Factory
+class PedidoFactory extends Factory
 {
     /**
      * @var string
      */
-    protected $model = Order::class;
+    protected $model = Pedido::class;
 
     public function definition(): array
     {
@@ -29,8 +29,8 @@ class OrderFactory extends Factory
 
     public function configure(): Factory
     {
-        return $this->afterCreating(function (Order $order) {
-            $order->address()->save(OrderAddressFactory::new()->make());
+        return $this->afterCreating(function (Pedido $pedido) {
+            $pedido->address()->save(PedidoAddressFactory::new()->make());
         });
     }
 }

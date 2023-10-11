@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Filament\Resources\Shop\OrderResource\Pages;
+namespace App\Filament\Resources\Shop\PedidoResource\Pages;
 
-use App\Filament\Resources\Shop\OrderResource;
+use App\Filament\Resources\Shop\PedidoResource;
 use Filament\Pages\Actions;
 use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Resources\Pages\ListRecords;
 
-class ListOrders extends ListRecords
+class ListPedidos extends ListRecords
 {
     use ExposesTableToWidgets;
 
-    protected static string $resource = OrderResource::class;
+    protected static string $resource = PedidoResource::class;
 
     protected function getActions(): array
     {
@@ -22,7 +22,7 @@ class ListOrders extends ListRecords
 
     protected function getHeaderWidgets(): array
     {
-        return OrderResource::getWidgets();
+        return PedidoResource::getWidgets();
     }
 
     public function getTabs(): array

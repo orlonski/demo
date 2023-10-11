@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Filament\Resources\Shop\OrderResource;
+use App\Filament\Resources\Shop\PedidoResource;
 use App\Models\Address;
 use App\Models\Blog\Author;
 use App\Models\Blog\Categoria as BlogCategoria;
@@ -11,8 +11,8 @@ use App\Models\Comment;
 use App\Models\Shop\Marca;
 use App\Models\Shop\Categoria as ShopCategoria;
 use App\Models\Shop\Cliente;
-use App\Models\Shop\Order;
-use App\Models\Shop\OrderItem;
+use App\Models\Shop\Pedido;
+use App\Models\Shop\PedidoItem;
 use App\Models\Shop\Payment;
 use App\Models\Shop\Produto;
 use App\Models\User;
@@ -73,29 +73,29 @@ class DatabaseSeeder extends Seeder
             ->create());
         $this->command->info('Produtos criados.');
 
-        $this->command->warn(PHP_EOL . 'Creating orders...');
-        $orders = $this->withProgressBar(1000, fn () => Order::factory(1)
+        $this->command->warn(PHP_EOL . 'Criando pedidos...');
+        $pedidos = $this->withProgressBar(1000, fn () => Pedido::factory(1)
             ->sequence(fn ($sequence) => ['shop_cliente_id' => $clientes->random(1)->first()->id])
             ->has(Payment::factory()->count(rand(1, 3)))
             ->has(
-                OrderItem::factory()->count(rand(2, 5))
-                    ->state(fn (array $attributes, Order $order) => ['shop_produto_id' => $produtos->random(1)->first()->id]),
+                PedidoItem::factory()->count(rand(2, 5))
+                    ->state(fn (array $attributes, Pedido $pedido) => ['shop_produto_id' => $produtos->random(1)->first()->id]),
                 'items'
             )
             ->create());
 
-        foreach ($orders->random(rand(5, 8)) as $order) {
+        foreach ($pedidos->random(rand(5, 8)) as $pedido) {
             Notification::make()
-                ->title('New order')
+                ->title('Novo pedido')
                 ->icon('heroicon-o-shopping-bag')
-                ->body("{$order->cliente->name} ordered {$order->items->count()} produtos.")
+                ->body("{$pedido->cliente->name} encomendado {$pedido->items->count()} produtos.")
                 ->actions([
                     Action::make('View')
-                        ->url(OrderResource::getUrl('edit', ['record' => $order])),
+                        ->url(PedidoResource::getUrl('edit', ['record' => $pedido])),
                 ])
                 ->sendToDatabase($user);
         }
-        $this->command->info('Shop orders created.');
+        $this->command->info('Pedidos criados.');
 
         // Blog
         $this->command->warn(PHP_EOL . 'Criando categorias...');

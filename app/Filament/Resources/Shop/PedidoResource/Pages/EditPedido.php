@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Filament\Resources\Shop\OrderResource\Pages;
+namespace App\Filament\Resources\Shop\PedidoResource\Pages;
 
-use App\Filament\Resources\Shop\OrderResource;
+use App\Filament\Resources\Shop\PedidoResource;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\EditRecord;
 
-class EditOrder extends EditRecord
+class EditPedido extends EditRecord
 {
-    protected static string $resource = OrderResource::class;
+    protected static string $resource = PedidoResource::class;
 
     protected function getActions(): array
     {
