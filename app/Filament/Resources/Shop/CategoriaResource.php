@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Shop;
 
-use App\Filament\Resources\Shop\CategoryResource\Pages;
-use App\Filament\Resources\Shop\CategoryResource\RelationManagers;
-use App\Models\Shop\Category;
+use App\Filament\Resources\Shop\CategoriaResource\Pages;
+use App\Filament\Resources\Shop\CategoriaResource\RelationManagers;
+use App\Models\Shop\Categoria;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -14,11 +14,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
-class CategoryResource extends Resource
+class CategoriaResource extends Resource
 {
-    protected static ?string $model = Category::class;
+    protected static ?string $model = Categoria::class;
 
-    protected static ?string $slug = 'shop/categories';
+    protected static ?string $slug = 'shop/categorias';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -46,14 +46,14 @@ class CategoryResource extends Resource
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
-                                    ->unique(Category::class, 'slug', ignoreRecord: true),
+                                    ->unique(Categoria::class, 'slug', ignoreRecord: true),
                             ]),
 
                         Forms\Components\Select::make('parent_id')
                             ->label('Parent')
                             ->relationship('parent', 'name', fn (Builder $query) => $query->where('parent_id', null))
                             ->searchable()
-                            ->placeholder('Select parent category'),
+                            ->placeholder('Selecione a categoria pai'),
 
                         Forms\Components\Toggle::make('is_visible')
                             ->label('Visível para os clientes.')
@@ -62,19 +62,19 @@ class CategoryResource extends Resource
                         Forms\Components\MarkdownEditor::make('description')
                             ->label('Description'),
                     ])
-                    ->columnSpan(['lg' => fn (?Category $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn (?Categoria $record) => $record === null ? 3 : 2]),
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Created at')
-                            ->content(fn (Category $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (Categoria $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Last modified at')
-                            ->content(fn (Category $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn (Categoria $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Category $record) => $record === null),
+                    ->hidden(fn (?Categoria $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -120,16 +120,16 @@ class CategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ProductsRelationManager::class,
+            RelationManagers\ProdutosRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCategories::route('/'),
-            'create' => Pages\CreateCategory::route('/create'),
-            'edit' => Pages\EditCategory::route('/{record}/edit'),
+            'index' => Pages\ListCategorias::route('/'),
+            'create' => Pages\CreateCategoria::route('/create'),
+            'edit' => Pages\EditCategoria::route('/{record}/edit'),
         ];
     }
 }

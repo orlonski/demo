@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Product extends Model implements HasMedia
+class Produto extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
@@ -19,7 +19,7 @@ class Product extends Model implements HasMedia
     /**
      * @var string
      */
-    protected $table = 'shop_products';
+    protected $table = 'shop_produtos';
 
     /**
      * @var array<string, string>
@@ -37,9 +37,9 @@ class Product extends Model implements HasMedia
         return $this->belongsTo(Marca::class, 'shop_marca_id');
     }
 
-    public function categories(): BelongsToMany
+    public function categorias(): BelongsToMany
     {
-        return $this->belongsToMany(Category::class, 'shop_category_product', 'shop_product_id', 'shop_category_id')->withTimestamps();
+        return $this->belongsToMany(Categoria::class, 'shop_categoria_produto', 'shop_produto_id', 'shop_categoria_id')->withTimestamps();
     }
 
     public function comments(): MorphMany

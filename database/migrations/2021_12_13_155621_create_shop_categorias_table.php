@@ -13,9 +13,9 @@ return new class() extends Migration
      */
     public function up()
     {
-        Schema::create('shop_categories', function (Blueprint $table) {
+        Schema::create('shop_categorias', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('parent_id')->nullable()->constrained('shop_categories')->cascadeOnDelete();
+            $table->foreignId('parent_id')->nullable()->constrained('shop_categorias')->cascadeOnDelete();
             $table->string('name');
             $table->string('slug')->unique();
             $table->longText('description')->nullable();
@@ -34,6 +34,6 @@ return new class() extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_categories');
+        Schema::dropIfExists('shop_categorias');
     }
 };

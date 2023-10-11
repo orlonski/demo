@@ -1,17 +1,17 @@
 <?php
 
-namespace Database\Factories\Shop;
+namespace Database\Factories\Blog;
 
-use App\Models\Shop\Category;
+use App\Models\Blog\Categoria;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
-class CategoryFactory extends Factory
+class CategoriaFactory extends Factory
 {
     /**
      * @var string
      */
-    protected $model = Category::class;
+    protected $model = Categoria::class;
 
     public function definition(): array
     {

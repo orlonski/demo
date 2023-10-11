@@ -32,8 +32,8 @@ class Marca extends Model implements HasMedia
         return $this->morphToMany(Address::class, 'addressable', 'addressables');
     }
 
-    public function products(): HasMany
+    public function produtos(): HasMany
     {
-        return $this->hasMany(Product::class, 'shop_marca_id');
+        return $this->hasMany(Produto::class, 'shop_marca_id');
     }
 }

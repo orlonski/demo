@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\Shop;
 
-use App\Filament\Resources\Shop\MarcaResource\RelationManagers\ProductsRelationManager;
-use App\Filament\Resources\Shop\ProductResource\Pages;
-use App\Filament\Resources\Shop\ProductResource\RelationManagers;
-use App\Filament\Resources\Shop\ProductResource\Widgets\ProductStats;
-use App\Models\Shop\Product;
+use App\Filament\Resources\Shop\MarcaResource\RelationManagers\ProdutosRelationManager;
+use App\Filament\Resources\Shop\ProdutoResource\Pages;
+use App\Filament\Resources\Shop\ProdutoResource\RelationManagers;
+use App\Filament\Resources\Shop\ProdutoResource\Widgets\ProdutoStats;
+use App\Models\Shop\Produto;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
@@ -18,11 +18,11 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class ProductResource extends Resource
+class ProdutoResource extends Resource
 {
-    protected static ?string $model = Product::class;
+    protected static ?string $model = Produto::class;
 
-    protected static ?string $slug = 'shop/products';
+    protected static ?string $slug = 'shop/produtos';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -30,7 +30,7 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-bolt';
 
-    protected static ?string $navigationLabel = 'Products';
+    protected static ?string $navigationLabel = 'Produtos';
 
     protected static ?int $navigationSort = 0;
 
@@ -57,7 +57,7 @@ class ProductResource extends Resource
                                     ->disabled()
                                     ->dehydrated()
                                     ->required()
-                                    ->unique(Product::class, 'slug', ignoreRecord: true),
+                                    ->unique(Produto::class, 'slug', ignoreRecord: true),
 
                                 Forms\Components\MarkdownEditor::make('description')
                                     ->columnSpan('full'),
@@ -67,7 +67,7 @@ class ProductResource extends Resource
                         Forms\Components\Section::make('Images')
                             ->schema([
                                 SpatieMediaLibraryFileUpload::make('media')
-                                    ->collection('product-images')
+                                    ->collection('produto-images')
                                     ->multiple()
                                     ->maxFiles(5)
                                     ->disableLabel(),
@@ -99,12 +99,12 @@ class ProductResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('sku')
                                     ->label('SKU (Stock Keeping Unit)')
-                                    ->unique(Product::class, 'sku', ignoreRecord: true)
+                                    ->unique(Produto::class, 'sku', ignoreRecord: true)
                                     ->required(),
 
                                 Forms\Components\TextInput::make('barcode')
                                     ->label('Barcode (ISBN, UPC, GTIN, etc.)')
-                                    ->unique(Product::class, 'barcode', ignoreRecord: true)
+                                    ->unique(Produto::class, 'barcode', ignoreRecord: true)
                                     ->required(),
 
                                 Forms\Components\TextInput::make('qty')
@@ -114,7 +114,7 @@ class ProductResource extends Resource
                                     ->required(),
 
                                 Forms\Components\TextInput::make('security_stock')
-                                    ->helperText('The safety stock is the limit stock for your products which alerts you if the product stock will soon be out of stock.')
+                                    ->helperText('O estoque de segurança é o estoque limite de seus produtos que alerta se o estoque do produto estará esgotado em breve.')
                                     ->numeric()
                                     ->rules(['integer', 'min:0'])
                                     ->required(),
@@ -124,10 +124,10 @@ class ProductResource extends Resource
                         Forms\Components\Section::make('Shipping')
                             ->schema([
                                 Forms\Components\Checkbox::make('backorder')
-                                    ->label('This product can be returned'),
+                                    ->label('Este produto pode ser devolvido'),
 
                                 Forms\Components\Checkbox::make('requires_shipping')
-                                    ->label('This product will be shipped'),
+                                    ->label('Este produto será enviado'),
                             ])
                             ->columns(2),
                     ])
@@ -139,7 +139,7 @@ class ProductResource extends Resource
                             ->schema([
                                 Forms\Components\Toggle::make('is_visible')
                                     ->label('Visible')
-                                    ->helperText('This product will be hidden from all sales channels.')
+                                    ->helperText('Este produto ficará oculto em todos os canais de vendas.')
                                     ->default(true),
 
                                 Forms\Components\DatePicker::make('published_at')
@@ -153,10 +153,10 @@ class ProductResource extends Resource
                                 Forms\Components\Select::make('shop_marca_id')
                                     ->relationship('marca', 'name')
                                     ->searchable()
-                                    ->hiddenOn(ProductsRelationManager::class),
+                                    ->hiddenOn(ProdutosRelationManager::class),
 
-                                Forms\Components\Select::make('categories')
-                                    ->relationship('categories', 'name')
+                                Forms\Components\Select::make('categorias')
+                                    ->relationship('categorias', 'name')
                                     ->multiple()
                                     ->required(),
                             ]),
@@ -170,9 +170,9 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\SpatieMediaLibraryImageColumn::make('product-image')
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('produto-image')
                     ->label('Image')
-                    ->collection('product-images'),
+                    ->collection('produto-images'),
 
                 Tables\Columns\TextColumn::make('name')
                     ->label('Name')
@@ -258,16 +258,16 @@ class ProductResource extends Resource
     public static function getWidgets(): array
     {
         return [
-            ProductStats::class,
+            ProdutoStats::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProducts::route('/'),
-            'create' => Pages\CreateProduct::route('/create'),
-            'edit' => Pages\EditProduct::route('/{record}/edit'),
+            'index' => Pages\ListProdutos::route('/'),
+            'create' => Pages\CreateProduto::route('/create'),
+            'edit' => Pages\EditProduto::route('/{record}/edit'),
         ];
     }
 
@@ -278,7 +278,7 @@ class ProductResource extends Resource
 
     public static function getGlobalSearchResultDetails(Model $record): array
     {
-        /** @var Product $record */
+        /** @var Produto $record */
 
         return [
             'Marca' => optional($record->marca)->name,

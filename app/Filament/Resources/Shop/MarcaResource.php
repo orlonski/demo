@@ -117,7 +117,7 @@ class MarcaResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ProductsRelationManager::class,
+            RelationManagers\ProdutosRelationManager::class,
             RelationManagers\AddressesRelationManager::class,
         ];
     }

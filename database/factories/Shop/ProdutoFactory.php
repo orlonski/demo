@@ -2,18 +2,18 @@
 
 namespace Database\Factories\Shop;
 
-use App\Models\Shop\Product;
+use App\Models\Shop\Produto;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\UnreachableUrl;
 
-class ProductFactory extends Factory
+class ProdutoFactory extends Factory
 {
     /**
      * @var string
      */
-    protected $model = Product::class;
+    protected $model = Produto::class;
 
     public function definition(): array
     {
@@ -37,13 +37,13 @@ class ProductFactory extends Factory
         ];
     }
 
-    public function configure(): ProductFactory
+    public function configure(): ProdutoFactory
     {
-        return $this->afterCreating(function (Product $product) {
+        return $this->afterCreating(function (Produto $produto) {
             try {
-                $product
+                $produto
                     ->addMediaFromUrl(DatabaseSeeder::IMAGE_URL)
-                    ->toMediaCollection('product-images');
+                    ->toMediaCollection('produto-images');
             } catch (UnreachableUrl $exception) {
                 return;
             }

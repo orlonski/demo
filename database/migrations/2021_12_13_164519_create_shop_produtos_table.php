@@ -13,7 +13,7 @@ return new class() extends Migration
      */
     public function up()
     {
-        Schema::create('shop_products', function (Blueprint $table) {
+        Schema::create('shop_produtos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('shop_marca_id')->nullable()->constrained()->nullOnDelete();
             $table->string('name');
@@ -65,6 +65,6 @@ return new class() extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_products');
+        Schema::dropIfExists('shop_produtos');
     }
 };

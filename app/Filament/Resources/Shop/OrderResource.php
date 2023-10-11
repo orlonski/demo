@@ -7,7 +7,7 @@ use App\Filament\Resources\Shop\OrderResource\RelationManagers;
 use App\Filament\Resources\Shop\OrderResource\Widgets\OrderStats;
 use App\Forms\Components\AddressForm;
 use App\Models\Shop\Order;
-use App\Models\Shop\Product;
+use App\Models\Shop\Produto;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
@@ -220,12 +220,12 @@ class OrderResource extends Resource
                 Forms\Components\Repeater::make('items')
                     ->relationship()
                     ->schema([
-                        Forms\Components\Select::make('shop_product_id')
-                            ->label('Product')
-                            ->options(Product::query()->pluck('name', 'id'))
+                        Forms\Components\Select::make('shop_produto_id')
+                            ->label('Produto')
+                            ->options(Produto::query()->pluck('name', 'id'))
                             ->required()
                             ->reactive()
-                            ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('unit_price', Product::find($state)?->price ?? 0))
+                            ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('unit_price', Produto::find($state)?->price ?? 0))
                             ->columnSpan([
                                 'md' => 5,
                             ])

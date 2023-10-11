@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\Shop\ProductResource\RelationManagers;
+namespace App\Filament\Resources\Shop\ProdutoResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -84,7 +84,7 @@ class CommentsRelationManager extends RelationManager
                         Notification::make()
                             ->title('New comment')
                             ->icon('heroicon-o-chat-bubble-bottom-center-text')
-                            ->body("**{$record->cliente->name} commented on product ({$record->commentable->name}).**")
+                            ->body("**{$record->cliente->name} comentou sobre o produto ({$record->commentable->name}).**")
                             ->sendToDatabase(auth()->user());
                     }),
             ])

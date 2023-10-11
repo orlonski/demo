@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Filament\Resources\Shop\ProductResource\Widgets;
+namespace App\Filament\Resources\Shop\ProdutoResource\Widgets;
 
-use App\Filament\Resources\Shop\ProductResource\Pages\ListProducts;
+use App\Filament\Resources\Shop\ProdutoResource\Pages\ListProdutos;
 use Filament\Widgets\Concerns\InteractsWithPageTable;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
-class ProductStats extends BaseWidget
+class ProdutoStats extends BaseWidget
 {
     use InteractsWithPageTable;
 
@@ -15,14 +15,14 @@ class ProductStats extends BaseWidget
 
     protected function getTablePage(): string
     {
-        return ListProducts::class;
+        return ListProdutos::class;
     }
 
     protected function getStats(): array
     {
         return [
-            Stat::make('Total Products', $this->getPageTableQuery()->count()),
-            Stat::make('Product Inventory', $this->getPageTableQuery()->sum('qty')),
+            Stat::make('Total Produtos', $this->getPageTableQuery()->count()),
+            Stat::make('Produto Inventory', $this->getPageTableQuery()->sum('qty')),
             Stat::make('Average price', number_format($this->getPageTableQuery()->avg('price'), 2)),
         ];
     }

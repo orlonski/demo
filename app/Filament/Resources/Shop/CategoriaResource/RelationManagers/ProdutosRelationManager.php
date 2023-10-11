@@ -1,27 +1,27 @@
 <?php
 
-namespace App\Filament\Resources\Shop\CategoryResource\RelationManagers;
+namespace App\Filament\Resources\Shop\CategoriaResource\RelationManagers;
 
-use App\Filament\Resources\Shop\ProductResource;
+use App\Filament\Resources\Shop\ProdutoResource;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
 
-class ProductsRelationManager extends RelationManager
+class ProdutosRelationManager extends RelationManager
 {
-    protected static string $relationship = 'products';
+    protected static string $relationship = 'produtos';
 
     protected static ?string $recordTitleAttribute = 'name';
 
     public function form(Form $form): Form
     {
-        return ProductResource::form($form);
+        return ProdutoResource::form($form);
     }
 
     public function table(Table $table): Table
     {
-        return ProductResource::table($table)
+        return ProdutoResource::table($table)
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
             ])

@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Filament\Resources\Shop\ProductResource\Pages;
+namespace App\Filament\Resources\Shop\ProdutoResource\Pages;
 
-use App\Filament\Resources\Shop\ProductResource;
+use App\Filament\Resources\Shop\ProdutoResource;
 use Filament\Pages\Actions;
 use Filament\Pages\Concerns\ExposesTableToWidgets;
 use Filament\Resources\Pages\ListRecords;
 
-class ListProducts extends ListRecords
+class ListProdutos extends ListRecords
 {
     use ExposesTableToWidgets;
 
-    protected static string $resource = ProductResource::class;
+    protected static string $resource = ProdutoResource::class;
 
     protected function getActions(): array
     {
@@ -22,6 +22,6 @@ class ListProducts extends ListRecords
 
     protected function getHeaderWidgets(): array
     {
-        return ProductResource::getWidgets();
+        return ProdutoResource::getWidgets();
     }
 }

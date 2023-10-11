@@ -13,10 +13,10 @@ return new class() extends Migration
      */
     public function up()
     {
-        Schema::create('shop_category_product', function (Blueprint $table) {
-            $table->primary(['shop_category_id', 'shop_product_id']);
-            $table->foreignId('shop_category_id')->nullable();
-            $table->foreignId('shop_product_id')->nullable();
+        Schema::create('shop_categoria_produto', function (Blueprint $table) {
+            $table->primary(['shop_categoria_id', 'shop_produto_id']);
+            $table->foreignId('shop_categoria_id')->nullable();
+            $table->foreignId('shop_produto_id')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class() extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shop_category_product');
+        Schema::dropIfExists('shop_categoria_produto');
     }
 };

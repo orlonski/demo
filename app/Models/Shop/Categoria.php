@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Category extends Model implements HasMedia
+class Categoria extends Model implements HasMedia
 {
     use HasFactory;
     use InteractsWithMedia;
@@ -18,7 +18,7 @@ class Category extends Model implements HasMedia
     /**
      * @var string
      */
-    protected $table = 'shop_categories';
+    protected $table = 'shop_categorias';
 
     /**
      * @var array<string, string>
@@ -29,16 +29,16 @@ class Category extends Model implements HasMedia
 
     public function children(): HasMany
     {
-        return $this->hasMany(Category::class, 'parent_id');
+        return $this->hasMany(Categoria::class, 'parent_id');
     }
 
     public function parent(): BelongsTo
     {
-        return $this->belongsTo(Category::class, 'parent_id');
+        return $this->belongsTo(Categoria::class, 'parent_id');
     }
 
-    public function products(): BelongsToMany
+    public function produtos(): BelongsToMany
     {
-        return $this->belongsToMany(Product::class, 'shop_category_product', 'shop_category_id', 'shop_product_id');
+        return $this->belongsToMany(Produto::class, 'shop_categoria_produto', 'shop_categoria_id', 'shop_produto_id');
     }
 }
