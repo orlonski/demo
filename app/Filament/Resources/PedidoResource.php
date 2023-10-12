@@ -149,9 +149,7 @@ class PedidoResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            // RelationManagers\PaymentsRelationManager::class,
-        ];
+        return [];
     }
 
     public static function getWidgets(): array

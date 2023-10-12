@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -42,8 +41,4 @@ class Produto extends Model implements HasMedia
         return $this->belongsToMany(Categoria::class, 'categoria_produto', 'produto_id', 'categoria_id')->withTimestamps();
     }
 
-    public function comments(): MorphMany
-    {
-        return $this->morphMany(Comment::class, 'commentable');
-    }
 }

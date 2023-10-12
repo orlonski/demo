@@ -84,18 +84,8 @@ You're ready to go! Visit the url in your browser, and login with:
 #### BelongsToMany
 - CategoriaResource\RelationManagers\ProdutosRelationManager
 
-<!-- #### HasMany -->
-<!-- - PedidoResource\RelationManagers\PaymentsRelationManager -->
-
-<!-- #### HasManyThrough -->
-<!-- - ClienteResource\RelationManagers\PaymentsRelationManager -->
-
 #### MorphOne
 - PedidoResource -> Address
-
-#### MorphMany
-- ProdutoResource\RelationManagers\CommentsRelationManager
-- PostResource\RelationManagers\CommentsRelationManager
 
 #### MorphToMany
 - MarcaResource\RelationManagers\AddressRelationManager

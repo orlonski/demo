@@ -44,8 +44,4 @@ class Pedido extends Model
         return $this->hasMany(PedidoItem::class, 'pedido_id');
     }
 
-    public function payments(): HasMany
-    {
-        return $this->hasMany(Payment::class);
-    }
 }
