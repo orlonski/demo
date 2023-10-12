@@ -13,13 +13,12 @@ return new class() extends Migration
      */
     public function up()
     {
-        Schema::create('pedido_addresses', function (Blueprint $table) {
+        Schema::create('pedido_items', function (Blueprint $table) {
             $table->id();
-            $table->morphs('addressable');
-            $table->string('street')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('zip')->nullable();
+            $table->foreignId('pedido_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('produto_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->integer('qty');
+            $table->decimal('unit_price', 10, 2);
             $table->timestamps();
         });
     }
@@ -31,6 +30,6 @@ return new class() extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pedido_addresses');
+        Schema::dropIfExists('pedido_items');
     }
 };

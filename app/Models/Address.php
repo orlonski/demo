@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Models\Shop\Marca;
-use App\Models\Shop\Cliente;
+use App\Models\Marca;
+use App\Models\Cliente;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

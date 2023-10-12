@@ -2,8 +2,8 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Resources\Shop\PedidoResource;
-use App\Models\Shop\Pedido;
+use App\Filament\Resources\PedidoResource;
+use App\Models\Pedido;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;

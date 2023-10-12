@@ -36,10 +36,10 @@ class AdminPanelProvider extends PanelProvider
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
             ])
-            ->navigationGroups([
-                'Shop',
-                'Blog',
-            ])
+            // ->navigationGroups([
+            //     'Shop',
+            //     'Blog',
+            // ])
             ->databaseNotifications()
             ->middleware([
                 EncryptCookies::class,

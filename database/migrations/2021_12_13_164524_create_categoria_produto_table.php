@@ -13,13 +13,10 @@ return new class() extends Migration
      */
     public function up()
     {
-        Schema::create('pedido_addresses', function (Blueprint $table) {
-            $table->id();
-            $table->morphs('addressable');
-            $table->string('street')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('zip')->nullable();
+        Schema::create('categoria_produto', function (Blueprint $table) {
+            $table->primary(['categoria_id', 'produto_id']);
+            $table->foreignId('categoria_id')->nullable();
+            $table->foreignId('produto_id')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class() extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pedido_addresses');
+        Schema::dropIfExists('categoria_produto');
     }
 };
