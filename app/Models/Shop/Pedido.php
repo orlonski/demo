@@ -26,9 +26,6 @@ class Pedido extends Model
         'number',
         'total_price',
         'status',
-        'currency',
-        'shipping_price',
-        'shipping_method',
         'notes',
     ];
 

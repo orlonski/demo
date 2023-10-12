@@ -18,8 +18,7 @@ class ClienteFactory extends Factory
             'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'phone' => $this->faker->phoneNumber(),
-            'birthday' => $this->faker->dateTimeBetween('-35 years', '-18 years'),
-            'gender' => $this->faker->randomElement(['male', 'female']),
+            'data_nascimento' => $this->faker->dateTimeBetween('-35 years', '-18 years'),
             'created_at' => $this->faker->dateTimeBetween('-1 year', '-6 month'),
             'updated_at' => $this->faker->dateTimeBetween('-5 month', 'now'),
         ];

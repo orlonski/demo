@@ -37,21 +37,14 @@ class CategoriaResource extends Resource
                         Forms\Components\Grid::make()
                             ->schema([
                                 Forms\Components\TextInput::make('name')
+                                    ->label('Nome')
                                     ->required()
-                                    ->maxValue(50)
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
-
-                                Forms\Components\TextInput::make('slug')
-                                    ->disabled()
-                                    ->dehydrated()
-                                    ->required()
-                                    ->unique(Categoria::class, 'slug', ignoreRecord: true),
+                                    ->maxValue(50),
                             ]),
 
                         Forms\Components\Select::make('parent_id')
-                            ->label('Parent')
-                            ->relationship('parent', 'name', fn (Builder $query) => $query->where('parent_id', null))
+                            ->label('Pai')
+                            ->relationship('parent', 'name', fn(Builder $query) => $query->where('parent_id', null))
                             ->searchable()
                             ->placeholder('Selecione a categoria pai'),
 
@@ -60,21 +53,21 @@ class CategoriaResource extends Resource
                             ->default(true),
 
                         Forms\Components\MarkdownEditor::make('description')
-                            ->label('Description'),
+                            ->label('Descrição'),
                     ])
-                    ->columnSpan(['lg' => fn (?Categoria $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn(?Categoria $record) => $record === null ? 3 : 2]),
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
-                            ->label('Created at')
-                            ->content(fn (Categoria $record): ?string => $record->created_at?->diffForHumans()),
+                            ->label('Criado em')
+                            ->content(fn(Categoria $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
-                            ->label('Last modified at')
-                            ->content(fn (Categoria $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->label('Última modificação em')
+                            ->content(fn(Categoria $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Categoria $record) => $record === null),
+                    ->hidden(fn(?Categoria $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -84,19 +77,19 @@ class CategoriaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label('Nome')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('parent.name')
-                    ->label('Parent')
+                    ->label('Pai')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_visible')
-                    ->label('Visibility')
+                    ->label('Visibilidade')
                     ->boolean()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Updated Date')
+                    ->label('Data atualizada')
                     ->date()
                     ->sortable(),
             ])
@@ -110,7 +103,7 @@ class CategoriaResource extends Resource
                 Tables\Actions\DeleteBulkAction::make()
                     ->action(function () {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title('Não seja atrevido, deixe alguns registros!')
                             ->warning()
                             ->send();
                     }),

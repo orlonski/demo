@@ -25,7 +25,7 @@ class Cliente extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'birthday' => 'date',
+        'data_nascimento' => 'date',
     ];
 
     public function addresses(): MorphToMany

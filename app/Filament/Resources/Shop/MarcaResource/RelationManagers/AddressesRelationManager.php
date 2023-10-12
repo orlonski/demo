@@ -7,7 +7,6 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Squire\Models\Country;
 
 class AddressesRelationManager extends RelationManager
 {
@@ -27,10 +26,6 @@ class AddressesRelationManager extends RelationManager
 
                 Forms\Components\TextInput::make('state'),
 
-                Forms\Components\Select::make('country')
-                    ->searchable()
-                    ->getSearchResultsUsing(fn (string $query) => Country::where('name', 'like', "%{$query}%")->pluck('name', 'id'))
-                    ->getOptionLabelUsing(fn ($value): ?string => Country::find($value)?->getAttribute('name')),
             ]);
     }
 
@@ -44,8 +39,6 @@ class AddressesRelationManager extends RelationManager
 
                 Tables\Columns\TextColumn::make('city'),
 
-                Tables\Columns\TextColumn::make('country')
-                    ->formatStateUsing(fn ($state): ?string => Country::find($state)?->name ?? null),
             ])
             ->filters([
                 //

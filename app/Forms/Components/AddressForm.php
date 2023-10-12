@@ -4,7 +4,6 @@ namespace App\Forms\Components;
 
 use Filament\Forms;
 use Illuminate\Database\Eloquent\Model;
-use Squire\Models\Country;
 
 class AddressForm extends Forms\Components\Field
 {
@@ -39,22 +38,16 @@ class AddressForm extends Forms\Components\Field
     public function getChildComponents(): array
     {
         return [
-            Forms\Components\Grid::make()
-                ->schema([
-                    Forms\Components\Select::make('country')
-                        ->searchable()
-                        ->getSearchResultsUsing(fn (string $query) => Country::where('name', 'like', "%{$query}%")->pluck('name', 'id'))
-                        ->getOptionLabelUsing(fn ($value): ?string => Country::find($value)?->getAttribute('name')),
-                ]),
             Forms\Components\TextInput::make('street')
-                ->label('Street address'),
-            Forms\Components\Grid::make(3)
+                ->label('Endereço'),
+                Forms\Components\Grid::make(3)
                 ->schema([
-                    Forms\Components\TextInput::make('city'),
+                    Forms\Components\TextInput::make('city')
+                    ->label('Cidade'),
                     Forms\Components\TextInput::make('state')
-                        ->label('State / Province'),
+                        ->label('Estado'),
                     Forms\Components\TextInput::make('zip')
-                        ->label('Zip / Postal code'),
+                        ->label('CEP'),
                 ]),
         ];
     }
@@ -67,7 +60,6 @@ class AddressForm extends Forms\Components\Field
             $address = $record?->getRelationValue($this->getRelationship());
 
             $component->state($address ? $address->toArray() : [
-                'country' => null,
                 'street' => null,
                 'city' => null,
                 'state' => null,

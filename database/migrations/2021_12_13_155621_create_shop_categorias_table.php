@@ -16,8 +16,7 @@ return new class() extends Migration
         Schema::create('shop_categorias', function (Blueprint $table) {
             $table->id();
             $table->foreignId('parent_id')->nullable()->constrained('shop_categorias')->cascadeOnDelete();
-            $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('name')->unique();
             $table->longText('description')->nullable();
             $table->unsignedSmallInteger('position')->default(0);
             $table->boolean('is_visible')->default(false);

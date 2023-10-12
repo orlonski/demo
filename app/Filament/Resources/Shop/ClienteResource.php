@@ -13,7 +13,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Squire\Models\Country;
 
 class ClienteResource extends Resource
 {
@@ -35,37 +34,51 @@ class ClienteResource extends Resource
             ->schema([
                 Forms\Components\Section::make()
                     ->schema([
-                        Forms\Components\TextInput::make('name')
+                        Forms\Components\TextInput::make('nome')
                             ->maxValue(50)
                             ->required(),
 
+                        Forms\Components\TextInput::make('documento')
+                            ->maxValue(11),
+
+                        Forms\Components\TextInput::make('celular')
+                            ->maxValue(13),
+
                         Forms\Components\TextInput::make('email')
-                            ->label('Email address')
+                            ->label('Email')
                             ->required()
                             ->email()
                             ->unique(ignoreRecord: true),
 
-                        Forms\Components\TextInput::make('phone')
-                            ->maxValue(50),
-
-                        Forms\Components\DatePicker::make('birthday')
+                        Forms\Components\DatePicker::make('data_nascimento')
+                            ->label('Data Nascimento')
                             ->maxDate('today'),
+
+                        Forms\Components\TextInput::make('endereco'),
+                        Forms\Components\TextInput::make('numero'),
+                        Forms\Components\TextInput::make('complemento'),
+                        Forms\Components\TextInput::make('cep'),
+                        Forms\Components\TextInput::make('bairro'),
+                        Forms\Components\TextInput::make('cidade'),
+                        Forms\Components\TextInput::make('uf'),
+                        Forms\Components\TextInput::make('observacao'),
+
                     ])
                     ->columns(2)
-                    ->columnSpan(['lg' => fn (?Cliente $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn(?Cliente $record) => $record === null ? 3 : 2]),
 
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
-                            ->label('Created at')
-                            ->content(fn (Cliente $record): ?string => $record->created_at?->diffForHumans()),
+                            ->label('Criado em')
+                            ->content(fn(Cliente $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
-                            ->label('Last modified at')
-                            ->content(fn (Cliente $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->label('Última modificação em')
+                            ->content(fn(Cliente $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Cliente $record) => $record === null),
+                    ->hidden(fn(?Cliente $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -74,16 +87,14 @@ class ClienteResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                Tables\Columns\TextColumn::make('nome')
                     ->searchable(isIndividual: true)
                     ->sortable(),
                 Tables\Columns\TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('Email')
                     ->searchable(isIndividual: true, isGlobal: false)
                     ->sortable(),
-                Tables\Columns\TextColumn::make('country')
-                    ->getStateUsing(fn ($record): ?string => Country::find($record->addresses->first()?->country)?->name ?? null),
-                Tables\Columns\TextColumn::make('phone')
+                Tables\Columns\TextColumn::make('celular')
                     ->searchable()
                     ->sortable(),
             ])
@@ -97,7 +108,7 @@ class ClienteResource extends Resource
                 Tables\Actions\DeleteBulkAction::make()
                     ->action(function () {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title('Não seja atrevido, deixe alguns registros!')
                             ->warning()
                             ->send();
                     }),
@@ -112,8 +123,8 @@ class ClienteResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\AddressesRelationManager::class,
-            RelationManagers\PaymentsRelationManager::class,
+            // RelationManagers\AddressesRelationManager::class,
+            // RelationManagers\PaymentsRelationManager::class,
         ];
     }
 

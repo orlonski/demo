@@ -22,8 +22,6 @@ return new class() extends Migration
 
             $table->decimal('amount');
 
-            $table->string('currency');
-
             $table->timestamps();
         });
     }

@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
-use Squire\Models\Currency;
 
 class PedidoResource extends Resource
 {
@@ -46,20 +45,20 @@ class PedidoResource extends Resource
                         Forms\Components\Section::make('Pedido items')
                             ->schema(static::getFormSchema('items')),
                     ])
-                    ->columnSpan(['lg' => fn (?Pedido $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn(?Pedido $record) => $record === null ? 3 : 2]),
 
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Created at')
-                            ->content(fn (Pedido $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn(Pedido $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Last modified at')
-                            ->content(fn (Pedido $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn(Pedido $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Pedido $record) => $record === null),
+                    ->hidden(fn(?Pedido $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -69,35 +68,23 @@ class PedidoResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('number')
+                    ->label('Pedido')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('cliente.name')
-                    ->searchable()
-                    ->sortable()
-                    ->toggleable(),
+                Tables\Columns\TextColumn::make('cliente.nome')
+                ->searchable()
+                ->sortable()
+                ->toggleable(),
                 Tables\Columns\BadgeColumn::make('status')
                     ->colors([
                         'danger' => 'cancelled',
                         'warning' => 'processing',
-                        'success' => fn ($state) => in_array($state, ['delivered', 'shipped']),
+                        'success' => fn($state) => in_array($state, ['delivered', 'shipped']),
                     ]),
-                Tables\Columns\TextColumn::make('currency')
-                    ->getStateUsing(fn ($record): ?string => Currency::find($record->currency)?->name ?? null)
+                    Tables\Columns\TextColumn::make('total_price')
+                    ->label('Preço total')
                     ->searchable()
                     ->sortable()
-                    ->toggleable(),
-                Tables\Columns\TextColumn::make('total_price')
-                    ->searchable()
-                    ->sortable()
-                    ->summarize([
-                        Tables\Columns\Summarizers\Sum::make()
-                            ->money(),
-                    ]),
-                Tables\Columns\TextColumn::make('shipping_price')
-                    ->label('Shipping cost')
-                    ->searchable()
-                    ->sortable()
-                    ->toggleable()
                     ->summarize([
                         Tables\Columns\Summarizers\Sum::make()
                             ->money(),
@@ -113,19 +100,19 @@ class PedidoResource extends Resource
                 Tables\Filters\Filter::make('created_at')
                     ->form([
                         Forms\Components\DatePicker::make('created_from')
-                            ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
+                            ->placeholder(fn($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
                         Forms\Components\DatePicker::make('created_until')
-                            ->placeholder(fn ($state): string => now()->format('M d, Y')),
+                            ->placeholder(fn($state): string => now()->format('M d, Y')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
                             ->when(
                                 $data['created_from'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
                             )
                             ->when(
                                 $data['created_until'] ?? null,
-                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     })
                     ->indicateUsing(function (array $data): array {
@@ -224,14 +211,14 @@ class PedidoResource extends Resource
                             ->options(Produto::query()->pluck('name', 'id'))
                             ->required()
                             ->reactive()
-                            ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('unit_price', Produto::find($state)?->price ?? 0))
+                            ->afterStateUpdated(fn($state, Forms\Set $set) => $set('unit_price', Produto::find($state)?->price ?? 0))
                             ->columnSpan([
                                 'md' => 5,
                             ])
                             ->searchable(),
 
                         Forms\Components\TextInput::make('qty')
-                            ->label('Quantity')
+                            ->label('Quantidade')
                             ->numeric()
                             ->default(1)
                             ->columnSpan([
@@ -240,7 +227,7 @@ class PedidoResource extends Resource
                             ->required(),
 
                         Forms\Components\TextInput::make('unit_price')
-                            ->label('Unit Price')
+                            ->label('Preço unitário')
                             ->disabled()
                             ->dehydrated()
                             ->numeric()
@@ -267,29 +254,21 @@ class PedidoResource extends Resource
                 ->required(),
 
             Forms\Components\Select::make('shop_cliente_id')
-                ->relationship('cliente', 'name')
+                ->relationship('cliente', 'nome')
                 ->searchable()
                 ->required()
                 ->createOptionForm([
-                    Forms\Components\TextInput::make('name')
+                    Forms\Components\TextInput::make('nome')
                         ->required(),
 
                     Forms\Components\TextInput::make('email')
-                        ->label('Email address')
+                        ->label('Email')
                         ->required()
                         ->email()
                         ->unique(),
 
-                    Forms\Components\TextInput::make('phone'),
+                    Forms\Components\TextInput::make('celular'),
 
-                    Forms\Components\Select::make('gender')
-                        ->placeholder('Select gender')
-                        ->options([
-                            'male' => 'Male',
-                            'female' => 'Female',
-                        ])
-                        ->required()
-                        ->native(false),
                 ])
                 ->createOptionAction(function (Forms\Components\Actions\Action $action) {
                     return $action
@@ -298,27 +277,11 @@ class PedidoResource extends Resource
                         ->modalWidth('lg');
                 }),
 
-            Forms\Components\Select::make('status')
-                ->options([
-                    'new' => 'New',
-                    'processing' => 'Processing',
-                    'shipped' => 'Shipped',
-                    'delivered' => 'Delivered',
-                    'cancelled' => 'Cancelled',
-                ])
-                ->required()
-                ->native(false),
-
-            Forms\Components\Select::make('currency')
-                ->searchable()
-                ->getSearchResultsUsing(fn (string $query) => Currency::where('name', 'like', "%{$query}%")->pluck('name', 'id'))
-                ->getOptionLabelUsing(fn ($value): ?string => Currency::find($value)?->getAttribute('name'))
-                ->required(),
-
             AddressForm::make('address')
                 ->columnSpan('full'),
 
             Forms\Components\MarkdownEditor::make('notes')
+                ->label('Notas')
                 ->columnSpan('full'),
         ];
     }

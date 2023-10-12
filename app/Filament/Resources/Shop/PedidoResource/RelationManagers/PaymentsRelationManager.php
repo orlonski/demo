@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources\Shop\PedidoResource\RelationManagers;
 
-use Akaunting\Money\Currency;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -27,11 +26,6 @@ class PaymentsRelationManager extends RelationManager
                 Forms\Components\TextInput::make('amount')
                     ->numeric()
                     ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
-                    ->required(),
-
-                Forms\Components\Select::make('currency')
-                    ->options(collect(Currency::getCurrencies())->mapWithKeys(fn ($item, $key) => [$key => data_get($item, 'name')]))
-                    ->searchable()
                     ->required(),
 
                 Forms\Components\Select::make('provider')
@@ -59,10 +53,6 @@ class PaymentsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('reference')
                     ->searchable(),
-
-                Tables\Columns\TextColumn::make('amount')
-                    ->sortable()
-                    ->money(fn ($record) => $record->currency),
 
                 Tables\Columns\TextColumn::make('provider')
                     ->formatStateUsing(fn ($state) => Str::headline($state)),

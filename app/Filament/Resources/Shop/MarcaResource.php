@@ -36,18 +36,19 @@ class MarcaResource extends Resource
                         Forms\Components\Grid::make()
                             ->schema([
                                 Forms\Components\TextInput::make('name')
-                                    ->required()
-                                    ->live(onBlur: true)
-                                    ->afterStateUpdated(fn (string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
+                                    ->label('Nome')
+                                    ->required(),
+                                    // ->live(onBlur: true)
+                                    // ->afterStateUpdated(fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
 
-                                Forms\Components\TextInput::make('slug')
-                                    ->disabled()
-                                    ->dehydrated()
-                                    ->required()
-                                    ->unique(Marca::class, 'slug', ignoreRecord: true),
+                                // Forms\Components\TextInput::make('slug')
+                                //     ->disabled()
+                                //     ->dehydrated()
+                                //     ->required()
+                                //     ->unique(Marca::class, 'slug', ignoreRecord: true),
                             ]),
                         Forms\Components\TextInput::make('website')
-                            ->required()
+                            // ->required()
                             ->url(),
 
                         Forms\Components\Toggle::make('is_visible')
@@ -55,21 +56,21 @@ class MarcaResource extends Resource
                             ->default(true),
 
                         Forms\Components\MarkdownEditor::make('description')
-                            ->label('Description'),
+                            ->label('Descrição'),
                     ])
-                    ->columnSpan(['lg' => fn (?Marca $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn(?Marca $record) => $record === null ? 3 : 2]),
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
-                            ->label('Created at')
-                            ->content(fn (Marca $record): ?string => $record->created_at?->diffForHumans()),
+                            ->label('Criado em')
+                            ->content(fn(Marca $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
-                            ->label('Last modified at')
-                            ->content(fn (Marca $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->label('Última modificação em')
+                            ->content(fn(Marca $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn (?Marca $record) => $record === null),
+                    ->hidden(fn(?Marca $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -79,7 +80,7 @@ class MarcaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Name')
+                    ->label('Nome')
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('website')
@@ -87,11 +88,11 @@ class MarcaResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_visible')
-                    ->label('Visibility')
+                    ->label('Visibilidade')
                     ->boolean()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_at')
-                    ->label('Updated Date')
+                    ->label('Data atualizada')
                     ->date()
                     ->sortable(),
             ])
@@ -105,7 +106,7 @@ class MarcaResource extends Resource
                 Tables\Actions\DeleteBulkAction::make()
                     ->action(function () {
                         Notification::make()
-                            ->title('Now, now, don\'t be cheeky, leave some records for others to play with!')
+                            ->title('Não seja atrevido, deixe alguns registros!')
                             ->warning()
                             ->send();
                     }),

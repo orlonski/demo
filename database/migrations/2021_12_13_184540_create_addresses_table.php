@@ -16,7 +16,6 @@ return new class() extends Migration
         Schema::create('shop_pedido_addresses', function (Blueprint $table) {
             $table->id();
             $table->morphs('addressable');
-            $table->string('country')->nullable();
             $table->string('street')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();
