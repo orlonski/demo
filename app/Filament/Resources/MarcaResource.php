@@ -38,17 +38,8 @@ class MarcaResource extends Resource
                                 Forms\Components\TextInput::make('name')
                                     ->label('Nome')
                                     ->required(),
-                                    // ->live(onBlur: true)
-                                    // ->afterStateUpdated(fn(string $operation, $state, Forms\Set $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null),
-
-                                // Forms\Components\TextInput::make('slug')
-                                //     ->disabled()
-                                //     ->dehydrated()
-                                //     ->required()
-                                //     ->unique(Marca::class, 'slug', ignoreRecord: true),
                             ]),
                         Forms\Components\TextInput::make('website')
-                            // ->required()
                             ->url(),
 
                         Forms\Components\Toggle::make('is_visible')
