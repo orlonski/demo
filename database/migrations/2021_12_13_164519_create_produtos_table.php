@@ -22,6 +22,7 @@ return new class () extends Migration {
             $table->boolean('featured')->default(false);
             $table->boolean('is_visible')->default(false);
             $table->decimal('price', 10, 2)->nullable();
+            $table->decimal('custo', 10, 2)->nullable();
             $table->enum('type', ['deliverable', 'downloadable'])->nullable();
             $table->date('published_at')->nullable();
             $table->string('seo_title', 60)->nullable();

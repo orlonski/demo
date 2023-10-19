@@ -26,7 +26,7 @@ class ProdutoResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $navigationGroup = 'Produtos';
 
     protected static ?string $navigationIcon = 'heroicon-o-bolt';
 
@@ -65,6 +65,11 @@ class ProdutoResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('price')
                                     ->label('Preço')
+                                    ->numeric()
+                                    ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
+                                    ->required(),
+                                Forms\Components\TextInput::make('custo')
+                                    ->label('Custo')
                                     ->numeric()
                                     ->rules(['regex:/^\d{1,6}(\.\d{0,2})?$/'])
                                     ->required(),

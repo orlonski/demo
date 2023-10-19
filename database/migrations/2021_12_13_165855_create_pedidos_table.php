@@ -15,8 +15,10 @@ return new class () extends Migration {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cliente_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('forma_pagamento_id')->nullable()->constrained()->nullOnDelete();
             $table->string('number', 32)->unique();
             $table->decimal('total_price', 12, 2)->nullable();
+            $table->text('data_pagamento');
             $table->enum('status', ['new', 'processing', 'shipped', 'delivered', 'cancelled'])->default('new');
             $table->text('notes')->nullable();
             $table->timestamps();

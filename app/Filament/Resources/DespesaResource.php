@@ -17,7 +17,7 @@ class DespesaResource extends Resource
 {
     protected static ?string $model = Despesa::class;
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $navigationGroup = 'Despesas';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -35,8 +35,8 @@ class DespesaResource extends Resource
                     ])
                     ->createOptionAction(function (Forms\Components\Actions\Action $action) {
                         return $action
-                            ->modalHeading('Criar forma pagamento')
-                            ->modalButton('Criar forma pagamento')
+                            ->modalHeading('Criar fornecedor')
+                            ->modalButton('Criar fornecedor')
                             ->modalWidth('lg');
                     }),
                 Forms\Components\Select::make('forma_pagamento_id')

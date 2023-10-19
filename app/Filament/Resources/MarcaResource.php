@@ -21,7 +21,7 @@ class MarcaResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $navigationGroup = 'Produtos';
 
     protected static ?string $navigationIcon = 'heroicon-o-bookmark-square';
 

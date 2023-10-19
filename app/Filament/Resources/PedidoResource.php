@@ -27,7 +27,10 @@ class PedidoResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'number';
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $modelLabel = 'Venda';
+    protected static ?string $pluralModelLabel = 'Vendas';
+
+    protected static ?string $navigationGroup = 'Pedidos';
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
@@ -72,16 +75,16 @@ class PedidoResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('cliente.nome')
-                ->searchable()
-                ->sortable()
-                ->toggleable(),
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(),
                 Tables\Columns\BadgeColumn::make('status')
                     ->colors([
                         'danger' => 'cancelled',
                         'warning' => 'processing',
                         'success' => fn($state) => in_array($state, ['delivered', 'shipped']),
                     ]),
-                    Tables\Columns\TextColumn::make('total_price')
+                Tables\Columns\TextColumn::make('total_price')
                     ->label('Preço total')
                     ->searchable()
                     ->sortable()
@@ -274,6 +277,26 @@ class PedidoResource extends Resource
                         ->modalButton('Criar cliente')
                         ->modalWidth('lg');
                 }),
+
+            Forms\Components\Select::make('forma_pagamento_id')
+                ->relationship('formaPagamento', 'descricao')
+                ->searchable()
+                ->required()
+                ->createOptionForm([
+                    Forms\Components\TextInput::make('descricao')
+                        ->required(),
+
+                ])
+                ->createOptionAction(function (Forms\Components\Actions\Action $action) {
+                    return $action
+                        ->modalHeading('Criar forma pagamento')
+                        ->modalButton('Criar forma pagamento')
+                        ->modalWidth('lg');
+                }),
+
+            Forms\Components\TextInput::make('data_pagamento')
+                ->required(),
+
 
             AddressForm::make('address')
                 ->columnSpan('full'),

@@ -17,7 +17,7 @@ class FormaPagamentoResource extends Resource
 {
     protected static ?string $model = FormaPagamento::class;
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $navigationGroup = 'Cadastros';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

@@ -19,8 +19,10 @@ class FornecedorResource extends Resource
     protected static ?string $model = Fornecedor::class;
 
     protected static ?string $slug = 'fornecedores';
+    protected static ?string $modelLabel = 'Fornecedor';
+    protected static ?string $pluralModelLabel = 'Fornecedores';
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $navigationGroup = 'Cadastros';
     
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

@@ -44,4 +44,9 @@ class Pedido extends Model
         return $this->hasMany(PedidoItem::class, 'pedido_id');
     }
 
+    public function formaPagamento(): BelongsTo
+    {
+        return $this->belongsTo(FormaPagamento::class, 'forma_pagamento_id');
+    }
+
 }

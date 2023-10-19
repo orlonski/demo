@@ -17,7 +17,10 @@ class CategoriaDespesaResource extends Resource
 {
     protected static ?string $model = CategoriaDespesa::class;
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $navigationGroup = 'Despesas';
+    
+    protected static ?string $modelLabel = 'Categoria';
+    protected static ?string $pluralModelLabel = 'Categorias';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

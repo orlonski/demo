@@ -23,7 +23,7 @@ class ClienteResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationGroup = 'Shop';
+    protected static ?string $navigationGroup = 'Cadastros';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
