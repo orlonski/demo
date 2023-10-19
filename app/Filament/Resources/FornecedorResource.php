@@ -35,7 +35,7 @@ class FornecedorResource extends Resource
                                 ->maxValue(50)
                                 ->required(),
                             Forms\Components\TextInput::make('documento')
-                                ->maxValue(11),
+                                ->maxValue(18),
                             Forms\Components\TextInput::make('celular')
                                 ->maxValue(13),
                             Forms\Components\TextInput::make('email')

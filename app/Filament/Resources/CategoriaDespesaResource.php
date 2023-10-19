@@ -35,7 +35,7 @@ class CategoriaDespesaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('descricao')
-                    ->searchable(isIndividual: true)
+                    ->searchable()
                     ->sortable(),
             ])
             ->filters([

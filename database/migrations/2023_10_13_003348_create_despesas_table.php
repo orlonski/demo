@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('despesas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('fornecedor_id')->nullable()->constrained()->cascadeOnDelete();
+            $table->foreignId('fornecedores_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('forma_pagamento_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('categoria_id')->nullable()->constrained()->cascadeOnDelete();
             $table->timestamps();
