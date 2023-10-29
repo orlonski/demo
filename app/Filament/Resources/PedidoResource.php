@@ -30,7 +30,7 @@ class PedidoResource extends Resource
     protected static ?string $modelLabel = 'Venda';
     protected static ?string $pluralModelLabel = 'Vendas';
 
-    protected static ?string $navigationGroup = 'Pedidos';
+    protected static ?string $navigationGroup = 'Vendas';
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
 
@@ -305,5 +305,51 @@ class PedidoResource extends Resource
                 ->label('Notas')
                 ->columnSpan('full'),
         ];
+    }
+    public static function getFormItems(string $section = null): array
+    {
+        return [
+            Forms\Components\Repeater::make('items')
+                ->relationship()
+                ->schema([
+                    Forms\Components\Select::make('produto_id')
+                        ->label('Produto')
+                        ->options(Produto::query()->pluck('name', 'id'))
+                        ->required()
+                        ->reactive()
+                        ->afterStateUpdated(fn($state, Forms\Set $set) => $set('unit_price', Produto::find($state)?->price ?? 0))
+                        ->columnSpan([
+                            'md' => 5,
+                        ])
+                        ->searchable(),
+
+                    Forms\Components\TextInput::make('qty')
+                        ->label('Quantidade')
+                        ->numeric()
+                        ->default(1)
+                        ->columnSpan([
+                            'md' => 2,
+                        ])
+                        ->required(),
+
+                    Forms\Components\TextInput::make('unit_price')
+                        ->label('Preço unitário')
+                        ->disabled()
+                        ->dehydrated()
+                        ->numeric()
+                        ->required()
+                        ->columnSpan([
+                            'md' => 3,
+                        ]),
+                ])
+                ->orderable()
+                ->defaultItems(1)
+                ->disableLabel()
+                ->columns([
+                    'md' => 10,
+                ])
+                ->required(),
+        ];
+
     }
 }

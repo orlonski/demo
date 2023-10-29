@@ -23,7 +23,7 @@ class ClienteResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static ?string $navigationGroup = 'Cadastros';
+    protected static ?string $navigationGroup = 'Clientes';
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
@@ -40,12 +40,14 @@ class ClienteResource extends Resource
                                 ->maxValue(50)
                                 ->required(),
                             Forms\Components\TextInput::make('documento')
+                                ->label('CPF/CNPJ')
                                 ->maxValue(11),
                             Forms\Components\TextInput::make('celular')
+                                ->label('Telefone')
+                                ->required()
                                 ->maxValue(13),
                             Forms\Components\TextInput::make('email')
                                 ->label('Email')
-                                ->required()
                                 ->email()
                                 ->unique(ignoreRecord: true),
                             Forms\Components\DatePicker::make('data_nascimento')
@@ -60,12 +62,14 @@ class ClienteResource extends Resource
                             Forms\Components\TextInput::make('cep'),
                             Forms\Components\TextInput::make('bairro'),
                             Forms\Components\TextInput::make('cidade'),
-                            Forms\Components\TextInput::make('uf'),
+                            Forms\Components\TextInput::make('uf')
+                                ->label('UF')
                         ]),
-                    Wizard\Step::make('Observação')
+                    Wizard\Step::make('Informações Adicionais')
                         ->schema([
-                            Forms\Components\TextInput::make('observacao'),
-                        ]),
+                            Forms\Components\Textarea::make('observacao'),
+                        ])
+                        ->columns(1)
                 ])
                     ->columns(2)
                     ->columnSpan(['lg' => fn(?Cliente $record) => $record === null ? 3 : 2]),

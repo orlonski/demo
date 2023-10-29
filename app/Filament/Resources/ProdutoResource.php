@@ -79,8 +79,7 @@ class ProdutoResource extends Resource
                             ->schema([
                                 Forms\Components\TextInput::make('barcode')
                                     ->label('Código de barras')
-                                    ->unique(Produto::class, 'barcode', ignoreRecord: true)
-                                    ->required(),
+                                    ->unique(Produto::class, 'barcode', ignoreRecord: true),
 
                                 Forms\Components\TextInput::make('qty')
                                     ->label('Quantidade')

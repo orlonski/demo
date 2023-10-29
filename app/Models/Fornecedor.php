@@ -26,6 +26,6 @@ class Fornecedor extends Model
 
     public function itens(): HasMany
     {
-        return $this->hasMany(FornecedorItem::class, 'fornecedor_id');
+        return $this->hasMany(FornecedorItem::class, 'fornecedores_id');
     }
 }
