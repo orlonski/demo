@@ -3,23 +3,21 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoriaDespesaResource\Pages;
-use App\Filament\Resources\CategoriaDespesaResource\RelationManagers;
 use App\Models\CategoriaDespesa;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CategoriaDespesaResource extends Resource
 {
     protected static ?string $model = CategoriaDespesa::class;
 
     protected static ?string $navigationGroup = 'Despesas';
-    
+
     protected static ?string $modelLabel = 'Categoria';
+
     protected static ?string $pluralModelLabel = 'Categorias';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

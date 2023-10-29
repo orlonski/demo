@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MarcaResource\RelationManagers\ProdutosRelationManager;
 use App\Filament\Resources\ProdutoResource\Pages;
-use App\Filament\Resources\ProdutoResource\RelationManagers;
 use App\Filament\Resources\ProdutoResource\Widgets\ProdutoStats;
 use App\Models\Produto;
 use Filament\Forms;
@@ -16,7 +15,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class ProdutoResource extends Resource
 {

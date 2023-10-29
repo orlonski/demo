@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClienteResource\Pages;
-use App\Filament\Resources\ClienteResource\RelationManagers;
 use App\Models\Cliente;
 use Filament\Forms;
 use Filament\Forms\Components\Wizard;
@@ -63,29 +62,29 @@ class ClienteResource extends Resource
                             Forms\Components\TextInput::make('bairro'),
                             Forms\Components\TextInput::make('cidade'),
                             Forms\Components\TextInput::make('uf')
-                                ->label('UF')
+                                ->label('UF'),
                         ]),
                     Wizard\Step::make('Informações Adicionais')
                         ->schema([
                             Forms\Components\Textarea::make('observacao'),
                         ])
-                        ->columns(1)
+                        ->columns(1),
                 ])
                     ->columns(2)
-                    ->columnSpan(['lg' => fn(?Cliente $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn (?Cliente $record) => $record === null ? 3 : 2]),
 
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Criado em')
-                            ->content(fn(Cliente $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (Cliente $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Última modificação em')
-                            ->content(fn(Cliente $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn (Cliente $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn(?Cliente $record) => $record === null),
+                    ->hidden(fn (?Cliente $record) => $record === null),
             ])
             ->columns(3);
     }

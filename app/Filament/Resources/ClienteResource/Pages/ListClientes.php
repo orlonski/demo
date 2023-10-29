@@ -24,5 +24,4 @@ class ListClientes extends ListRecords
     {
         return ClienteResource::getWidgets();
     }
-
 }

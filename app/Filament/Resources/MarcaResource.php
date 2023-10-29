@@ -11,7 +11,6 @@ use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\Str;
 
 class MarcaResource extends Resource
 {
@@ -49,19 +48,19 @@ class MarcaResource extends Resource
                         Forms\Components\MarkdownEditor::make('description')
                             ->label('Descrição'),
                     ])
-                    ->columnSpan(['lg' => fn(?Marca $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn (?Marca $record) => $record === null ? 3 : 2]),
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Criado em')
-                            ->content(fn(Marca $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (Marca $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Última modificação em')
-                            ->content(fn(Marca $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn (Marca $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn(?Marca $record) => $record === null),
+                    ->hidden(fn (?Marca $record) => $record === null),
             ])
             ->columns(3);
     }

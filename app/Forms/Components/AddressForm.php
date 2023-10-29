@@ -40,10 +40,10 @@ class AddressForm extends Forms\Components\Field
         return [
             Forms\Components\TextInput::make('street')
                 ->label('Endereço'),
-                Forms\Components\Grid::make(3)
+            Forms\Components\Grid::make(3)
                 ->schema([
                     Forms\Components\TextInput::make('city')
-                    ->label('Cidade'),
+                        ->label('Cidade'),
                     Forms\Components\TextInput::make('state')
                         ->label('Estado'),
                     Forms\Components\TextInput::make('zip')

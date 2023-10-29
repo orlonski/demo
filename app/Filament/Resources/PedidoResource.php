@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\PedidoResource\Pages;
-use App\Filament\Resources\PedidoResource\RelationManagers;
 use App\Filament\Resources\PedidoResource\Widgets\PedidoStats;
 use App\Forms\Components\AddressForm;
 use App\Models\Pedido;
@@ -28,6 +27,7 @@ class PedidoResource extends Resource
     protected static ?string $recordTitleAttribute = 'number';
 
     protected static ?string $modelLabel = 'Venda';
+
     protected static ?string $pluralModelLabel = 'Vendas';
 
     protected static ?string $navigationGroup = 'Vendas';
@@ -48,20 +48,20 @@ class PedidoResource extends Resource
                         Forms\Components\Section::make('Pedido items')
                             ->schema(static::getFormSchema('items')),
                     ])
-                    ->columnSpan(['lg' => fn(?Pedido $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn (?Pedido $record) => $record === null ? 3 : 2]),
 
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Created at')
-                            ->content(fn(Pedido $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (Pedido $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Last modified at')
-                            ->content(fn(Pedido $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn (Pedido $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn(?Pedido $record) => $record === null),
+                    ->hidden(fn (?Pedido $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -82,7 +82,7 @@ class PedidoResource extends Resource
                     ->colors([
                         'danger' => 'cancelled',
                         'warning' => 'processing',
-                        'success' => fn($state) => in_array($state, ['delivered', 'shipped']),
+                        'success' => fn ($state) => in_array($state, ['delivered', 'shipped']),
                     ]),
                 Tables\Columns\TextColumn::make('total_price')
                     ->label('Preço total')
@@ -103,19 +103,19 @@ class PedidoResource extends Resource
                 Tables\Filters\Filter::make('created_at')
                     ->form([
                         Forms\Components\DatePicker::make('created_from')
-                            ->placeholder(fn($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
+                            ->placeholder(fn ($state): string => 'Dec 18, ' . now()->subYear()->format('Y')),
                         Forms\Components\DatePicker::make('created_until')
-                            ->placeholder(fn($state): string => now()->format('M d, Y')),
+                            ->placeholder(fn ($state): string => now()->format('M d, Y')),
                     ])
                     ->query(function (Builder $query, array $data): Builder {
                         return $query
                             ->when(
                                 $data['created_from'] ?? null,
-                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '>=', $date),
                             )
                             ->when(
                                 $data['created_until'] ?? null,
-                                fn(Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
+                                fn (Builder $query, $date): Builder => $query->whereDate('created_at', '<=', $date),
                             );
                     })
                     ->indicateUsing(function (array $data): array {
@@ -212,7 +212,7 @@ class PedidoResource extends Resource
                             ->options(Produto::query()->pluck('name', 'id'))
                             ->required()
                             ->reactive()
-                            ->afterStateUpdated(fn($state, Forms\Set $set) => $set('unit_price', Produto::find($state)?->price ?? 0))
+                            ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('unit_price', Produto::find($state)?->price ?? 0))
                             ->columnSpan([
                                 'md' => 5,
                             ])
@@ -297,7 +297,6 @@ class PedidoResource extends Resource
             Forms\Components\TextInput::make('data_pagamento')
                 ->required(),
 
-
             AddressForm::make('address')
                 ->columnSpan('full'),
 
@@ -306,6 +305,7 @@ class PedidoResource extends Resource
                 ->columnSpan('full'),
         ];
     }
+
     public static function getFormItems(string $section = null): array
     {
         return [
@@ -317,7 +317,7 @@ class PedidoResource extends Resource
                         ->options(Produto::query()->pluck('name', 'id'))
                         ->required()
                         ->reactive()
-                        ->afterStateUpdated(fn($state, Forms\Set $set) => $set('unit_price', Produto::find($state)?->price ?? 0))
+                        ->afterStateUpdated(fn ($state, Forms\Set $set) => $set('unit_price', Produto::find($state)?->price ?? 0))
                         ->columnSpan([
                             'md' => 5,
                         ])

@@ -3,9 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\FornecedorResource\Pages;
-use App\Filament\Resources\FornecedorResource\RelationManagers;
 use App\Models\Fornecedor;
-use App\Models\Produto;
 use App\Models\ProdutoFornecedor;
 use Filament\Forms;
 use Filament\Forms\Components\Repeater;
@@ -14,15 +12,15 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class FornecedorResource extends Resource
 {
     protected static ?string $model = Fornecedor::class;
 
     protected static ?string $slug = 'fornecedores';
+
     protected static ?string $modelLabel = 'Fornecedor';
+
     protected static ?string $pluralModelLabel = 'Fornecedores';
 
     protected static ?string $navigationGroup = 'Fornecedores';
@@ -65,20 +63,20 @@ class FornecedorResource extends Resource
                         ]),
                 ])
                     ->columns(2)
-                    ->columnSpan(['lg' => fn(?Fornecedor $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn (?Fornecedor $record) => $record === null ? 3 : 2]),
 
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Criado em')
-                            ->content(fn(Fornecedor $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (Fornecedor $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Última modificação em')
-                            ->content(fn(Fornecedor $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn (Fornecedor $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn(?Fornecedor $record) => $record === null),
+                    ->hidden(fn (?Fornecedor $record) => $record === null),
             ])
             ->columns(3);
     }
@@ -148,7 +146,7 @@ class FornecedorResource extends Resource
                 ->required()
                 ->columns([
                     'md' => 10,
-                ])
+                ]),
         ];
 
     }

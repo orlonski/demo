@@ -12,7 +12,6 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Str;
 
 class CategoriaResource extends Resource
 {
@@ -44,7 +43,7 @@ class CategoriaResource extends Resource
 
                         Forms\Components\Select::make('parent_id')
                             ->label('Pai')
-                            ->relationship('parent', 'name', fn(Builder $query) => $query->where('parent_id', null))
+                            ->relationship('parent', 'name', fn (Builder $query) => $query->where('parent_id', null))
                             ->searchable()
                             ->placeholder('Selecione a categoria pai'),
 
@@ -55,19 +54,19 @@ class CategoriaResource extends Resource
                         Forms\Components\MarkdownEditor::make('description')
                             ->label('Descrição'),
                     ])
-                    ->columnSpan(['lg' => fn(?Categoria $record) => $record === null ? 3 : 2]),
+                    ->columnSpan(['lg' => fn (?Categoria $record) => $record === null ? 3 : 2]),
                 Forms\Components\Section::make()
                     ->schema([
                         Forms\Components\Placeholder::make('created_at')
                             ->label('Criado em')
-                            ->content(fn(Categoria $record): ?string => $record->created_at?->diffForHumans()),
+                            ->content(fn (Categoria $record): ?string => $record->created_at?->diffForHumans()),
 
                         Forms\Components\Placeholder::make('updated_at')
                             ->label('Última modificação em')
-                            ->content(fn(Categoria $record): ?string => $record->updated_at?->diffForHumans()),
+                            ->content(fn (Categoria $record): ?string => $record->updated_at?->diffForHumans()),
                     ])
                     ->columnSpan(['lg' => 1])
-                    ->hidden(fn(?Categoria $record) => $record === null),
+                    ->hidden(fn (?Categoria $record) => $record === null),
             ])
             ->columns(3);
     }

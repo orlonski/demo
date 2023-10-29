@@ -48,5 +48,4 @@ class Pedido extends Model
     {
         return $this->belongsTo(FormaPagamento::class, 'forma_pagamento_id');
     }
-
 }

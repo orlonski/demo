@@ -2,21 +2,13 @@
 
 namespace Database\Seeders;
 
-use App\Filament\Resources\PedidoResource;
 use App\Models\Address;
-use App\Models\Blog\Author;
 use App\Models\Blog\Categoria as BlogCategoria;
-use App\Models\Blog\Post;
-use App\Models\Marca;
 use App\Models\Categoria as Categoria;
 use App\Models\Cliente;
-use App\Models\Pedido;
-use App\Models\PedidoItem;
-use App\Models\Produto;
+use App\Models\Marca;
 use App\Models\User;
 use Closure;
-use Filament\Notifications\Actions\Action;
-use Filament\Notifications\Notification;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Storage;
