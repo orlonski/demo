@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PedidoResource\Pages;
 use App\Filament\Resources\PedidoResource\Widgets\PedidoStats;
-use App\Forms\Components\AddressForm;
 use App\Models\Pedido;
 use App\Models\Produto;
 use Filament\Forms;
@@ -17,7 +16,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
-use Filament\Forms\Components\DatePicker;
 
 class PedidoResource extends Resource
 {
@@ -267,10 +265,10 @@ class PedidoResource extends Resource
                         ->label('E-mail')
                         ->email()
                         ->unique(),
-                        
+
                     Forms\Components\TextInput::make('celular')
                         ->label('Telefone')
-                        ->required()
+                        ->required(),
 
                 ])
                 ->createOptionAction(function (Forms\Components\Actions\Action $action) {
@@ -298,7 +296,6 @@ class PedidoResource extends Resource
 
             Forms\Components\DatePicker::make('data_pagamento')
                 ->required(),
-
 
             Forms\Components\MarkdownEditor::make('notes')
                 ->label('Notas')
