@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
+use Filament\Forms\Components\DatePicker;
 
 class PedidoResource extends Resource
 {
@@ -263,12 +264,13 @@ class PedidoResource extends Resource
                         ->required(),
 
                     Forms\Components\TextInput::make('email')
-                        ->label('Email')
-                        ->required()
+                        ->label('E-mail')
                         ->email()
                         ->unique(),
-
-                    Forms\Components\TextInput::make('celular'),
+                        
+                    Forms\Components\TextInput::make('celular')
+                        ->label('Telefone')
+                        ->required()
 
                 ])
                 ->createOptionAction(function (Forms\Components\Actions\Action $action) {
@@ -294,11 +296,9 @@ class PedidoResource extends Resource
                         ->modalWidth('lg');
                 }),
 
-            Forms\Components\TextInput::make('data_pagamento')
+            Forms\Components\DatePicker::make('data_pagamento')
                 ->required(),
 
-            AddressForm::make('address')
-                ->columnSpan('full'),
 
             Forms\Components\MarkdownEditor::make('notes')
                 ->label('Notas')
